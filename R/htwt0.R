@@ -1,0 +1,26 @@
+#' U.S. Centers for Disease Control and Prevention (CDC) and World Health Organization (WHO) Growth Charts of Weight for Height
+#' 
+#' Original CSV data files were manipulated into a more usable format.
+#' 
+#' @format ## `htwt0`
+#' A data frame with 474 rows and 16 columns:
+#' \describe{
+#'   \item{CHART}{Growth chart label}
+#'   \item{VAR}{Demographic variable (HTWT denotes weight (kg) calculated using height (cm))}
+#'   \item{SEXF}{Female sex indicator (0 is male; 1 is female)}
+#'   \item{HTCMGRP}{Height group}
+#'   \item{L}{Power in the Box-Cox transformation (calculation of weight using height)}
+#'   \item{M}{Median (calculation of weight using height)}
+#'   \item{S}{Generalized coefficient of variation (calculation of weight using height)}
+#'   \item{P3}{3rd percentile of weight}
+#'   \item{P5}{5th percentile of weight}
+#'   \item{P10}{10th percentile of weight}
+#'   \item{P25}{25th percentile of weight}
+#'   \item{P50}{50th percentile of weight}
+#'   \item{P75}{75th percentile of weight}
+#'   \item{P90}{90th percentile of weight}
+#'   \item{P95}{95th percentile of weight}
+#'   \item{P97}{97th percentile of weight}
+#' }
+#' @source <https://www.cdc.gov/growthcharts/cdc-data-files.htm> and <https://www.cdc.gov/growthcharts/who-data-files.htm>
+"htwt0"
