@@ -157,7 +157,7 @@ fun_optim_2to20yr_mvn <- function(demo0 = NULL, ped0 = NULL, htwt0 = NULL, seed 
   
   ### RETURN ####
   
-  return(sos)
+  # return(sos)
 }
 
 ## LOOP REPLICATIONS ####

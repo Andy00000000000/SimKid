@@ -92,8 +92,6 @@ load_cdc <- function(dir = "data-raw"){
     dplyr::select(-LSAGEMO,-NXAGEMO)%>%
     dplyr::mutate(CHART = "CDC")%>%
     dplyr::select(CHART,VAR,SEXF,AGEGRP,L,M,S,P3,P5,P10,P25,P50,P75,P90,P95,P97)
-  
-  return(cdc0)
 }
 
 cdc0 <- suppressWarnings(load_cdc())

@@ -60,8 +60,6 @@ load_who <- function(dir = "data-raw"){
     dplyr::mutate(UPAGEMO = ifelse(is.na(NXAGEMO), AGEMO, NXAGEMO))%>%
     dplyr::mutate(AGEGRP = paste0("[",LOAGEMO,",",UPAGEMO,ifelse(LOAGEMO!=UPAGEMO, ")", "]")))%>%
     dplyr::select(CHART,VAR,SEXF,AGEGRP,L,M,S,P3,P5,P10,P25,P50,P75,P90,P95,P97)
-  
-  return(who0)
 }
 
 who0 <- suppressWarnings(load_who())

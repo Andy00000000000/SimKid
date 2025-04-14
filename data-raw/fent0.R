@@ -34,7 +34,7 @@ rm(csv0_male,csv0_female)
 
 fun_eqs <- function(theta, fixed){
   
-  tmpeq <- c()
+  tmpeq <- vector("numeric",5)
   
   WTKG1 <- fixed[1]
   WTKG2 <- fixed[2]
@@ -60,7 +60,7 @@ fun_eqs <- function(theta, fixed){
   
   sum <- sum(tmpeq)
   
-  return(sum) # optimizing towards minimum
+  # return(sum) # optimizing towards minimum
 }
 
 ### function for validation of wtkg ####
@@ -75,7 +75,7 @@ fun_pred <- function(PERC = NA, param = NULL){
   
   WTKG <- M*(1+L*S*Z)^(1/L)
   
-  return(WTKG)
+  # return(WTKG)
 }
 
 ### loop ####
@@ -89,7 +89,7 @@ wtkg_val <- lms_listing
 perc <- c(3,10,50,90,97)
 z <- qnorm(perc/100)
 
-for(iter in 1:nrow(lms_listing)){
+for(iter in seq_len(nrow(lms_listing))){
   #### ready ####
   
   wtkg <- c(
