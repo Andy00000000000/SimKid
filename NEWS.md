@@ -1,3 +1,8 @@
 # SimKid (development version)
 
-* Create the datasets and setup the project structure.
+* Create datasets.
+* Setup project structure.
+* Edit DESCRIPTION
+* Update README
+* Add CITATION
+* Add LICENSE
