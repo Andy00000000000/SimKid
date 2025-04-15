@@ -96,7 +96,7 @@ load_htwt <- function(dir = "data-raw"){
     dplyr::bind_rows(cdc_htwt)%>%
     dplyr::bind_rows(who_htwt)
   
-  return(htwt)
+  # return(htwt)
 }
 
 htwt0 <- suppressWarnings(load_htwt())
