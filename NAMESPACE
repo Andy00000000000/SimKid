@@ -2,4 +2,5 @@
 
 export("%>%")
 export(sim_kid)
+export(sim_kid_nperagebin)
 importFrom(magrittr,"%>%")

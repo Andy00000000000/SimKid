@@ -1,8 +1,8 @@
-#' Create body size metrics for virtual subjects using anthropological growth chart data
+#' Create body size metrics for virtual subjects using anthropometric growth chart data and a distribution of age
 #' 
 #' @description
 #' Body size metrics (height, weight, BMI, and BSA) are created for a population of virtual subjects.
-#' The body size metrics reflect the anthropological growth chart distribution(s) and correlations (ex. height vs weight) according to virtual subject age and sex.
+#' The body size metrics reflect the anthropometric growth chart distribution(s) and correlations (ex. height vs weight) according to virtual subject age and sex.
 #' The assumed distribution of age (uniform or truncated normal) and probability that a given subject is female are specified by the user.
 #' For ages greater than 2 years, CDC growth charts are used. 
 #' For ages birth to 2 years, either CDC (the default) or WHO growth charts can be used. Note that while CDC growth charts are used to prevent a jump discontinuity at 2 years, WHO growth charts are recommended for ages 0 to 2 years.
@@ -17,7 +17,7 @@
 #' if L (rounded to 6 decimal places) is equal to 0, then `= M*exp(S*Z)`;
 #' otherwise `= M*(1+L*S*Z)^(1/L))`.
 #' 
-#' Where L, M, and S are obtained, using the independent variables of sex (`SEXF`) and age bucket (`AGEGRP`), from identical internal-systems-data versions of the combined anthropological growth chart datasets ([kid0] and [htwt0] located within the `data` folder).
+#' Where L, M, and S are obtained, using the independent variables of sex (`SEXF`) and age bucket (`AGEGRP`), from identical internal-systems-data versions of the combined anthropometric growth chart datasets ([kid0] and [htwt0] located within the `data` folder).
 #' And where Z, the z-score respective to either the height or weight distribution, is randomly sampled for each virtual subject.
 #' 
 #' @section Simulation of z-scores for variability in height and weight: 
@@ -70,7 +70,7 @@
 #'   * `TRUE`: Age of `0` is birth.
 #'   * `FALSE` (the default): Age of `0` is ages from birth to less than one month.
 #'   * Not applicable nor used for `age0to2yr_growthchart = "FENTON"`, for which postnatal age is always zero.
-#' @param age0to2yr_growthchart A string that specifies which anthropological growth charts are used for ages less than or equal to 2 years old.
+#' @param age0to2yr_growthchart A string that specifies which anthropometric growth charts are used for ages less than or equal to 2 years old.
 #'   * `"CDC"` (the default): United States Centers for Disease Control and Prevention growth charts are used.
 #'   * `"WHO"`: World Health Organization growth charts are used.
 #'   * `"FENTON"`: Fenton growth charts for preterm newborns are used. This option is only available when simulating virtual subjects at birth (postnatal age = 0).
@@ -109,7 +109,7 @@
 #'    A warning will be returned if the simulation to create virtual subjects fails.
 #' @export
 #'
-#' @seealso [sim_kid_nperagebin()] to simulate the same number of virtual subjects per age bucket reported by the anthropological growth charts.
+#' @seealso [sim_kid_nperagebin()] to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
 #'
 #' @examples
 #' # Simulate 1 subject with an age randomly sampled from a uniform distribution of ages ranging

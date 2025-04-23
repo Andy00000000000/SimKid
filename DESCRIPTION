@@ -1,10 +1,10 @@
 Package: SimKid
-Title: Simulate Virtual Pediatrics using Anthropological Growth Charts
+Title: Simulate Virtual Pediatrics using Anthropometric Growth Charts
 Version: 0.0.0.9000
 Authors@R: c(
     person("Andrew", "Santulli", email = "asantulli@epd-llc.com", role = c("aut", "cre")),
     person("Enhanced Pharmacodynamics LLC", role = c("cph","fnd")))
-Description: Simulate a virtual population of subjects that has demographic distributions (height, weight, and BMI) and correlations (height and weight), by sex and age, which mimic those reported in real-world anthropological growth charts (CDC, WHO, or Fenton).
+Description: Simulate a virtual population of subjects that has demographic distributions (height, weight, and BMI) and correlations (height and weight), by sex and age, which mimic those reported in real-world anthropometric growth charts (CDC, WHO, or Fenton).
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

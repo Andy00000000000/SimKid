@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_kid.R
 \name{sim_kid}
 \alias{sim_kid}
-\title{Create body size metrics for virtual subjects using anthropological growth chart data}
+\title{Create body size metrics for virtual subjects using anthropometric growth chart data and a distribution of age}
 \usage{
 sim_kid(
   num = 1,
@@ -66,7 +66,7 @@ sim_kid(
 \item Not applicable nor used for \code{age0to2yr_growthchart = "FENTON"}, for which postnatal age is always zero.
 }}
 
-\item{age0to2yr_growthchart}{A string that specifies which anthropological growth charts are used for ages less than or equal to 2 years old.
+\item{age0to2yr_growthchart}{A string that specifies which anthropometric growth charts are used for ages less than or equal to 2 years old.
 \itemize{
 \item \code{"CDC"} (the default): United States Centers for Disease Control and Prevention growth charts are used.
 \item \code{"WHO"}: World Health Organization growth charts are used.
@@ -121,7 +121,7 @@ A warning will be returned if the simulation to create virtual subjects fails.
 }
 \description{
 Body size metrics (height, weight, BMI, and BSA) are created for a population of virtual subjects.
-The body size metrics reflect the anthropological growth chart distribution(s) and correlations (ex. height vs weight) according to virtual subject age and sex.
+The body size metrics reflect the anthropometric growth chart distribution(s) and correlations (ex. height vs weight) according to virtual subject age and sex.
 The assumed distribution of age (uniform or truncated normal) and probability that a given subject is female are specified by the user.
 For ages greater than 2 years, CDC growth charts are used.
 For ages birth to 2 years, either CDC (the default) or WHO growth charts can be used. Note that while CDC growth charts are used to prevent a jump discontinuity at 2 years, WHO growth charts are recommended for ages 0 to 2 years.
@@ -138,7 +138,7 @@ The equation for simulated body height in cm (\code{HTCM}) or weight in kg (\cod
 if L (rounded to 6 decimal places) is equal to 0, then \verb{= M*exp(S*Z)};
 otherwise \verb{= M*(1+L*S*Z)^(1/L))}.
 
-Where L, M, and S are obtained, using the independent variables of sex (\code{SEXF}) and age bucket (\code{AGEGRP}), from identical internal-systems-data versions of the combined anthropological growth chart datasets (\link{kid0} and \link{htwt0} located within the \code{data} folder).
+Where L, M, and S are obtained, using the independent variables of sex (\code{SEXF}) and age bucket (\code{AGEGRP}), from identical internal-systems-data versions of the combined anthropometric growth chart datasets (\link{kid0} and \link{htwt0} located within the \code{data} folder).
 And where Z, the z-score respective to either the height or weight distribution, is randomly sampled for each virtual subject.
 }
 
@@ -194,5 +194,5 @@ df_kids <- sim_kid(
 )
 }
 \seealso{
-\code{\link[=sim_kid_nperagebin]{sim_kid_nperagebin()}} to simulate the same number of virtual subjects per age bucket reported by the anthropological growth charts.
+\code{\link[=sim_kid_nperagebin]{sim_kid_nperagebin()}} to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
 }

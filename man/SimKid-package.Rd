@@ -4,9 +4,9 @@
 \name{SimKid-package}
 \alias{SimKid}
 \alias{SimKid-package}
-\title{SimKid: Simulate Virtual Pediatrics using Anthropological Growth Charts}
+\title{SimKid: Simulate Virtual Pediatrics using Anthropometric Growth Charts}
 \description{
-Simulate a virtual population of subjects that has demographic distributions (height, weight, and BMI) and correlations (height and weight), by sex and age, which mimic those reported in real-world anthropological growth charts (CDC, WHO, or Fenton).
+Simulate a virtual population of subjects that has demographic distributions (height, weight, and BMI) and correlations (height and weight), by sex and age, which mimic those reported in real-world anthropometric growth charts (CDC, WHO, or Fenton).
 }
 \author{
 \strong{Maintainer}: Andrew Santulli \email{asantulli@epd-llc.com}

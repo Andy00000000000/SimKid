@@ -1,6 +1,6 @@
 bibentry(
   bibtype  = "Manual",
-  title    = "SimKid: Simulate Virtual Pediatrics using Anthropological Growth Charts",
+  title    = "SimKid: Simulate Virtual Pediatrics using Anthropometric Growth Charts",
   author   = "Andrew R Santulli",
   year     = "2025",
   url      = "https://github.com/Andy00000000000/SimKid"
