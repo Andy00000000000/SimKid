@@ -29,7 +29,7 @@ sim_kid(
 \item \code{norm}: A truncated normal distribution of age with a mean of \code{agemean}, a standard deviation of \code{agesd}, and a range from \code{agemin} to \code{agemax}.
 }}
 
-\item{agemean}{A positive numeric greater than \code{agemin} and less than \code{agemax} that specifies the mean age when \code{agedistr = "norm"} is specified.
+\item{agemean}{A positive numeric greater than or equal to \code{agemin} and less than or equal to \code{agemax} that specifies the mean age when \code{agedistr = "norm"} is specified.
 \itemize{
 \item Not used for \code{agedistr = "unif"}.
 \item Units of postnatal age in months for \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
@@ -116,7 +116,7 @@ A data frame with the number of rows equal to \code{num} and columns of:
 \item \code{ZHTCM}: The z-score of height-for-age.
 \item \code{PWTKG}: The percentile of weight corresponding to the respective z-score.
 \item \code{PHTCM}: The percentile of height corresponding to the respective z-score.
-A warning will be returned if the simulation to create virtual subjects fails.
+A warning will be returned if the simulation fails.
 }
 }
 \description{

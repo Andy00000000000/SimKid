@@ -49,7 +49,7 @@
 #' @param agedistr A string that specifies the distribution used to create virtual subject age.
 #'   * `unif` (the default): A uniform distribution of age with a range from `agemin` to `agemax`.
 #'   * `norm`: A truncated normal distribution of age with a mean of `agemean`, a standard deviation of `agesd`, and a range from `agemin` to `agemax`.
-#' @param agemean A positive numeric greater than `agemin` and less than `agemax` that specifies the mean age when `agedistr = "norm"` is specified.
+#' @param agemean A positive numeric greater than or equal to `agemin` and less than or equal to `agemax` that specifies the mean age when `agedistr = "norm"` is specified.
 #'   * Not used for `agedistr = "unif"`.
 #'   * Units of postnatal age in months for `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'   * Units of gestational age in weeks for `age0to2yr_growthchart = "FENTON"`.
@@ -106,7 +106,7 @@
 #'    * `ZHTCM`: The z-score of height-for-age.
 #'    * `PWTKG`: The percentile of weight corresponding to the respective z-score.
 #'    * `PHTCM`: The percentile of height corresponding to the respective z-score.
-#'    A warning will be returned if the simulation to create virtual subjects fails.
+#'    A warning will be returned if the simulation fails.
 #' @export
 #'
 #' @seealso [sim_kid_nperagebin()] to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
@@ -145,5 +145,20 @@ sim_kid <- function(
   htwt_percentile_max = NULL,
   masterseed = NULL
 ){
+  ## CHECK ARGUEMENTS ####
+  
+  chk_arg(
+    num, agedistr, agemean, agesd, agemin, agemax, prob_female, 
+    age0isbirth, age0to2yr_growthchart, age2to20yr_correlate_htwt, 
+    htwt_percentile_min, htwt_percentile_max, masterseed
+  )
+  
+  age0to2yr_growthchart <- toupper(age0to2yr_growthchart)
+  
+  ## INITIALIZE DEFAULT REACTIVE ARGUEMENTS ####
+  
+  
+  
+  
 
 }
