@@ -36,6 +36,38 @@ test_that("agemean equal to agemin and agemax", {
   expect_no_error(chk_arg(agedistr = "norm", agemean = 48, agesd = 0, agemin = 48, agemax = 48))
 })
 
+test_that("prob_female = 0", {
+  expect_no_error(chk_arg(prob_female = 0))
+})
+
+test_that("prob_female = 1", {
+  expect_no_error(chk_arg(prob_female = 1))
+})
+
+test_that("prob_female = 0.25", {
+  expect_no_error(chk_arg(prob_female = 0.25))
+})
+
+test_that("age0isbirth = TRUE", {
+  expect_no_error(chk_arg(age0isbirth = TRUE))
+})
+
+test_that("age0isbirth = FALSE", {
+  expect_no_error(chk_arg(age0isbirth = FALSE))
+})
+
+test_that("age2to20yr_correlate_htwt = TRUE", {
+  expect_no_error(chk_arg(age2to20yr_correlate_htwt = TRUE))
+})
+
+test_that("age2to20yr_correlate_htwt = FALSE", {
+  expect_no_error(chk_arg(age2to20yr_correlate_htwt = FALSE))
+})
+
+test_that("masterseed = NULL", {
+  expect_no_error(chk_arg(masterseed = NULL))
+})
+
 ## num ####
 
 test_that("num = length > 1", {
@@ -68,6 +100,10 @@ test_that("num == 0", {
 
 test_that("num < 0", {
   expect_error(chk_arg(num = -1))
+})
+
+test_that("masterseed = NULL", {
+  expect_no_error(chk_arg(masterseed = NULL))
 })
 
 ## agedistr ####
@@ -224,6 +260,110 @@ test_that("age0to2yr_growthchart not character", {
 
 test_that("age0to2yr_growthchart not correct", {
   expect_error(chk_arg(age0to2yr_growthchart = "CDCa"))
+})
+
+## prob_female ####
+
+test_that("prob_female < 0", {
+  expect_error(chk_arg(prob_female = -0.1))
+})
+
+test_that("prob_female > 1", {
+  expect_error(chk_arg(prob_female = 20))
+})
+
+test_that("prob_female = NULL", {
+  expect_error(chk_arg(prob_female = NULL))
+})
+
+test_that("prob_female = NA", {
+  expect_error(chk_arg(prob_female = NA))
+})
+
+test_that("prob_female length > 1", {
+  expect_error(chk_arg(prob_female = c(0,0.2,1)))
+})
+
+test_that("prob_female not numeric", {
+  expect_error(chk_arg(prob_female = "abc"))
+})
+
+## age0isbirth ####
+
+test_that("age0isbirth = NA", {
+  expect_error(chk_arg(age0isbirth = NA))
+})
+
+test_that("age0isbirth = NULL", {
+  expect_error(chk_arg(age0isbirth = NULL))
+})
+
+test_that("age0isbirth length > 1", {
+  expect_error(chk_arg(age0isbirth = c(TRUE,TRUE)))
+})
+
+test_that("age0isbirth not logical", {
+  expect_error(chk_arg(age0isbirth = 1))
+})
+
+test_that("age0isbirth when age0to2yr_growthchart = FENTON", {
+  expect_warning(chk_arg(age0isbirth = TRUE, age0to2yr_growthchart = "FENTON"))
+})
+
+## age2to20yr_correlate_htwt ####
+
+test_that("age2to20yr_correlate_htwt = NA", {
+  expect_error(chk_arg(age2to20yr_correlate_htwt = NA))
+})
+
+test_that("age2to20yr_correlate_htwt = NULL", {
+  expect_error(chk_arg(age2to20yr_correlate_htwt = NULL))
+})
+
+test_that("age2to20yr_correlate_htwt length > 1", {
+  expect_error(chk_arg(age2to20yr_correlate_htwt = c(TRUE,TRUE)))
+})
+
+test_that("age2to20yr_correlate_htwt not logical", {
+  expect_error(chk_arg(age2to20yr_correlate_htwt = 1))
+})
+
+test_that("age2to20yr_correlate_htwt when age0to2yr_growthchart = FENTON", {
+  expect_warning(chk_arg(age2to20yr_correlate_htwt = FALSE, age0to2yr_growthchart = "FENTON"))
+})
+
+## htwt_percentile_min ####
+
+## htwt_percentile_max ####
+
+## masterseed ####
+
+test_that("masterseed = length > 1", {
+  expect_error(chk_arg(masterseed = c(1,2)))
+})
+
+test_that("masterseed = NA", {
+  expect_error(chk_arg(masterseed = NA))
+})
+
+test_that("masterseed = Inf", {
+  expect_error(chk_arg(masterseed = Inf))
+})
+
+test_that("masterseed = not numeric", {
+  expect_error(chk_arg(masterseed = "100"))
+})
+
+test_that("masterseed = not integer", {
+  expect_error(chk_arg(masterseed = 100.2))
+})
+
+test_that("masterseed == 0", {
+  expect_error(chk_arg(masterseed = 0))
+})
+
+test_that("masterseed < 0", {
+  expect_error(chk_arg(masterseed = -1))
 })
 
 ## END ####

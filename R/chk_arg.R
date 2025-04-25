@@ -23,15 +23,19 @@ chk_arg <- function( # same defaults as sim_kid() to facilitate testthat unit te
     masterseed = NULL
 ){
   ## age0to2yr_growthchart ####
+  
   if(length(age0to2yr_growthchart) != 1L || !is.character(age0to2yr_growthchart) || !(toupper(age0to2yr_growthchart) %in% c("CDC","WHO","FENTON"))){stop("age0to2yr_growthchart must be either \"CDC\", \"WHO\", or \"FENTON\"")}
   
   ## num ####
+  
   if(length(num) != 1L || !is.numeric(num) || num%%1!=0 || num <= 0){stop("num must be a positive integer of length one")}
   
   ## agedistr ####
+  
   if(length(agedistr) != 1L || !is.character(agedistr) || !(agedistr %in% c("unif","norm"))){stop("agedistr must be either \"unif\" or \"norm\"")}
   
   ## agemin and agemax ####
+  
   if(!is.null(agemin) && (length(agemin) != 1L || !is.numeric(agemin))){stop("agemin must be a numeric of length one")}
   if(!is.null(agemax) && (length(agemax) != 1L || !is.numeric(agemax))){stop("agemin must be a numeric of length one")}
   if(toupper(age0to2yr_growthchart) %in% c("CDC","WHO") && !is.null(agemin) && agemin < 0){stop("agemin must be >= 0 months when age0to2yr_growthchart is either \"CDC\" or \"WHO\"")}
@@ -41,6 +45,7 @@ chk_arg <- function( # same defaults as sim_kid() to facilitate testthat unit te
   if(!is.null(agemax) && !is.null(agemin) && agemax < agemin){stop("agemax must be > agemin")}
   
   ## agemean and agesd ####
+  
   if((!is.null(agemean)) && agedistr != "norm"){warning("agemean is only used for agedistr = \"norm\"")}
   if((!is.null(agesd)) && agedistr != "norm"){warning("agesd is only used for agedistr = \"norm\"")}
   if(agedistr == "norm" && (is.null(agemean) || is.null(agesd))){stop("agemean and agesd must be specified when agedistr = \"norm\"")}
@@ -54,15 +59,25 @@ chk_arg <- function( # same defaults as sim_kid() to facilitate testthat unit te
   
   ## prob_female ####
   
+  if(length(prob_female) != 1L || !is.numeric(prob_female) || prob_female < 0 || prob_female > 1){stop("prob_female must be numeric of length one and between 0 to 1, inclusively")}
+  
   ## age0isbirth ####
   
+  if(length(age0isbirth) != 1L || !is.logical(age0isbirth) || is.na(age0isbirth)){stop("age0isbirth must be logical of length one (\"TRUE\" or \"FALSE\")")}
+  if(toupper(age0to2yr_growthchart) == "FENTON" && age0isbirth == TRUE){warning("age0isbirth is not used age0to2yr_growthchart = \"FENTON\" since PNA is always zero and does not need to be specified")} # opposite of default
+  
   ## age2to20yr_correlate_htwt ####
+  
+  if(length(age2to20yr_correlate_htwt) != 1L || !is.logical(age2to20yr_correlate_htwt) || is.na(age2to20yr_correlate_htwt)){stop("age2to20yr_correlate_htwt must be logical of length one (\"TRUE\" or \"FALSE\")")}
+  if(toupper(age0to2yr_growthchart) == "FENTON" && age2to20yr_correlate_htwt == FALSE){warning("age2to20yr_correlate_htwt is not used age0to2yr_growthchart = \"FENTON\" since height is not simulated")} # opposite of default
   
   ## htwt_percentile_min ####
   
   ## htwt_percentile_max ####
   
   ## masterseed ####
+  
+  if(!is.null(masterseed) && (length(masterseed) != 1L || !is.numeric(masterseed) || masterseed%%1!=0 || masterseed <= 0)){stop("masterseed must be a positive integer of length one or \"NULL\" for no seed")}
   
   ## end ####
 }
