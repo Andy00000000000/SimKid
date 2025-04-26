@@ -80,12 +80,12 @@
 #'   * Not applicable nor used for `age0to2yr_growthchart = "FENTON"`, for which height is not simulated.
 #' @param htwt_percentile_min A numeric value that specifies the minimum allowed percentile of simulated height and weight, expressed as a decimal.
 #'    * Must be greater than or equal to `0.001`.
-#'    * Must be less than to `htwt_percentile_max`.
+#'    * Must be less than `htwt_percentile_max`.
 #'    * Defaults to `0.001` when `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'    * Defaults to `0.01` when `age0to2yr_growthchart = "FENTON"` to avoid non-viable birth weights.
 #' @param htwt_percentile_max A numeric value that specifies the maximum allowed percentile of simulated height and weight, expressed as a decimal.
-#'    * Must be greater than `htwt_percentile_min`.
 #'    * Must be less than or equal to `0.999`.
+#'    * Must be greater than `htwt_percentile_min`.
 #'    * Defaults to `0.999` when `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'    * Defaults to `0.99` when `age0to2yr_growthchart = "FENTON"` to avoid non-viable birth weights.
 #' @param masterseed An integer ranging from `1` to `.Machine$integer.max` that sets an overall seed for the simulation to ensure reproducibility of the results. Defaults to no seed.
@@ -159,6 +159,5 @@ sim_kid <- function(
   
   
   
-  
-
+  ## END ####
 }

@@ -4,6 +4,10 @@ test_that("default correct", {
   expect_no_error(chk_arg())
 })
 
+test_that("default correct and without warnings", {
+  expect_no_warning(chk_arg())
+})
+
 test_that("num correct", {
   expect_no_error(chk_arg(num = 2))
 })
@@ -67,6 +71,19 @@ test_that("age2to20yr_correlate_htwt = FALSE", {
 test_that("masterseed = NULL", {
   expect_no_error(chk_arg(masterseed = NULL))
 })
+
+test_that("htwt_percentile_min = 0.1", {
+  expect_no_error(chk_arg(htwt_percentile_min = 0.1))
+})
+
+test_that("htwt_percentile_max = 0.1", {
+  expect_no_error(chk_arg(htwt_percentile_max = 0.1))
+})
+
+test_that("htwt_percentile_min = 0.1 and htwt_percentile_max = 0.2", {
+  expect_no_error(chk_arg(htwt_percentile_min = 0.1, htwt_percentile_max = 0.2))
+})
+
 
 ## num ####
 
@@ -334,7 +351,63 @@ test_that("age2to20yr_correlate_htwt when age0to2yr_growthchart = FENTON", {
 
 ## htwt_percentile_min ####
 
+test_that("htwt_percentile_min = length > 1", {
+  expect_error(chk_arg(htwt_percentile_min = c(1,2)))
+})
+
+test_that("htwt_percentile_min = NA", {
+  expect_error(chk_arg(htwt_percentile_min = NA))
+})
+
+test_that("htwt_percentile_min = Inf", {
+  expect_error(chk_arg(htwt_percentile_min = Inf))
+})
+
+test_that("htwt_percentile_min = not numeric", {
+  expect_error(chk_arg(htwt_percentile_min = "100"))
+})
+
+test_that("htwt_percentile_min < min allowed", {
+  expect_error(chk_arg(htwt_percentile_min = 0.000999))
+})
+
+test_that("htwt_percentile_min < min suggested for Fenton", {
+  expect_warning(chk_arg(htwt_percentile_min = 0.009, age0to2yr_growthchart = "FENTON"))
+})
+
 ## htwt_percentile_max ####
+
+test_that("htwt_percentile_max = length > 1", {
+  expect_error(chk_arg(htwt_percentile_max = c(1,2)))
+})
+
+test_that("htwt_percentile_max = NA", {
+  expect_error(chk_arg(htwt_percentile_max = NA))
+})
+
+test_that("htwt_percentile_max = Inf", {
+  expect_error(chk_arg(htwt_percentile_max = Inf))
+})
+
+test_that("htwt_percentile_max = not numeric", {
+  expect_error(chk_arg(htwt_percentile_max = "100"))
+})
+
+test_that("htwt_percentile_max > max allowed", {
+  expect_error(chk_arg(htwt_percentile_max = 0.9991))
+})
+
+test_that("htwt_percentile_max = htwt_percentile_min", {
+  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6))
+})
+
+test_that("htwt_percentile_max < htwt_percentile_min", {
+  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.5))
+})
+
+test_that("htwt_percentile_max > max suggested for Fenton", {
+  expect_warning(chk_arg(htwt_percentile_max = 0.991, age0to2yr_growthchart = "FENTON"))
+})
 
 ## masterseed ####
 
