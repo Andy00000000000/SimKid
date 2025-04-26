@@ -8,6 +8,13 @@
 \description{
 Simulate a virtual population of subjects that has demographic distributions (height, weight, and BMI) and correlations (height and weight), by sex and age, which mimic those reported in real-world anthropometric growth charts (CDC, WHO, or Fenton).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/Andy00000000000/SimKid/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Andrew Santulli \email{asantulli@epd-llc.com}
 

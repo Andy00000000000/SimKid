@@ -11,6 +11,8 @@ Simulate virtual pediatric subjects using anthropological growth charts
 
 [![R-CMD-check](https://github.com/Andy00000000000/SimKid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Andy00000000000/SimKid/actions/workflows/R-CMD-check.yaml)
 [![CodeFactor](https://www.codefactor.io/repository/github/andy00000000000/simkid/badge)](https://www.codefactor.io/repository/github/andy00000000000/simkid)
+[![Codecov test
+coverage](https://codecov.io/gh/Andy00000000000/SimKid/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Andy00000000000/SimKid?branch=main)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/SimKid)](https://cran.r-project.org/package=SimKid)
 <!-- badges: end -->
