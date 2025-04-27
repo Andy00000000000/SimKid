@@ -21,24 +21,25 @@ sim_kid(
 )
 }
 \arguments{
-\item{num}{A positive integer that specifies the number of subjects to simulate. Defaults to a single subject.}
+\item{num}{A positive integer that specifies the number of subjects to simulate. Defaults to a single subject. For \code{agedistr = "nperage"} the number of subjects per growth chart age and sex bin.}
 
 \item{agedistr}{A string that specifies the distribution used to create virtual subject age.
 \itemize{
 \item \code{unif} (the default): A uniform distribution of age with a range from \code{agemin} to \code{agemax}.
 \item \code{norm}: A truncated normal distribution of age with a mean of \code{agemean}, a standard deviation of \code{agesd}, and a range from \code{agemin} to \code{agemax}.
+\item \code{nperage}: An equal number of subjects per growth chart age and sex bin.
 }}
 
 \item{agemean}{A positive numeric greater than or equal to \code{agemin} and less than or equal to \code{agemax} that specifies the mean age when \code{agedistr = "norm"} is specified.
 \itemize{
-\item Not used for \code{agedistr = "unif"}.
+\item Only used for \code{agedistr = "norm"}.
 \item Units of postnatal age in months for \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Units of gestational age in weeks for \code{age0to2yr_growthchart = "FENTON"}.
 }}
 
 \item{agesd}{A numeric greater than or equal to \code{0} that specifies the standard deviation of age when \code{agedistr = "norm"} is specified.
 \itemize{
-\item Not used for \code{agedistr = "unif"}.
+\item Only used for \code{agedistr = "norm"}.
 \item Units of postnatal age in months for \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Units of gestational age in weeks for \code{age0to2yr_growthchart = "FENTON"}.
 }}
@@ -47,14 +48,14 @@ sim_kid(
 \itemize{
 \item Must be greater than or equal to \code{0} months of postnatal age for \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Must be greater than or equal to \code{22} weeks of gestational age for \code{age0to2yr_growthchart = "FENTON"}.
-\item Must be less than \code{agemax}.
+\item Must be less than or equal to \code{agemax}.
 }}
 
 \item{agemax}{A numeric that specifies the upper range of age. Defaults to the maximum allowable range if missing.
 \itemize{
 \item Must be less than \code{240} months of postnatal age for \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Must be less than \code{41} weeks of gestational age for \code{age0to2yr_growthchart = "FENTON"}.
-\item Must be greater than \code{agemin}.
+\item Must be greater than or equal to \code{agemin}.
 }}
 
 \item{prob_female}{A numeric value with an inclusive range of \code{0} to \code{1} that specifies the probability that a given virtual subject is female. Defaults to \code{0.5}.}
@@ -192,7 +193,7 @@ df_kids <- sim_kid(
   agedistr = "unif", agemin = 12, agemax = 24,
   age0to2yr_growthchart = "WHO"
 )
-}
-\seealso{
-\code{\link[=sim_kid_nperagebin]{sim_kid_nperagebin()}} to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
+
+# Simulate 1 subject per age bin and per sex using CDC growth charts
+df_kids <- sim_kid(agedistr = "nperage")
 }

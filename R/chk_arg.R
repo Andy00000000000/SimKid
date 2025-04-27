@@ -32,7 +32,7 @@ chk_arg <- function( # same defaults as sim_kid() to facilitate testthat unit te
   
   ## agedistr ####
   
-  if(length(agedistr) != 1L || !is.character(agedistr) || !(agedistr %in% c("unif","norm"))){stop("agedistr must be either \"unif\" or \"norm\"")}
+  if(length(agedistr) != 1L || !is.character(agedistr) || !(agedistr %in% c("unif","norm","nperage"))){stop("agedistr must be either \"unif\" or \"norm\" or \"nperage\"")}
   
   ## agemin and agemax ####
   

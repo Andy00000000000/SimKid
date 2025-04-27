@@ -20,6 +20,10 @@ test_that("agedistr = correct character of norm", {
   expect_no_error(chk_arg(agedistr = "norm", agemean = 48, agesd = 1))
 })
 
+test_that("agedistr = correct character of nperage", {
+  expect_no_error(chk_arg(agedistr = "nperage"))
+})
+
 test_that("age0to2yr_growthchart = CDC correct", {
   expect_no_error(chk_arg(age0to2yr_growthchart = "CDC"))
 })

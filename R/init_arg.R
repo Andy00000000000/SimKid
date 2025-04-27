@@ -20,5 +20,5 @@ init_arg <- function(
   htwt_percentile_min <- ifelse(is.null(htwt_percentile_min), ifelse(age0to2yr_growthchart == "FENTON", 0.01, 0.001), htwt_percentile_min)
   htwt_percentile_max <- ifelse(is.null(htwt_percentile_max), ifelse(age0to2yr_growthchart == "FENTON", 0.99, 0.999), htwt_percentile_max)
   
-  return(list(agemin = agemin, agemax = agemax, htwt_percentile_min = htwt_percentile_min, htwt_percentile_max = htwt_percentile_max))
+  list(agemin = agemin, agemax = agemax, htwt_percentile_min = htwt_percentile_min, htwt_percentile_max = htwt_percentile_max)
 }

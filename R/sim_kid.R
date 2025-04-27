@@ -45,26 +45,27 @@
 #' The Gehan and George equation for body surface area in meters squared is `BSA2 = 0.0235*(WTKG^0.51456)*(HTCM^0.42246)`.
 #' The DuBois equation for body surface area in meters squared is `BSA3 = 0.007184*(WTKG^0.425)*(HTCM^0.725)`.
 #' 
-#' @param num A positive integer that specifies the number of subjects to simulate. Defaults to a single subject.
+#' @param num A positive integer that specifies the number of subjects to simulate. Defaults to a single subject. For `agedistr = "nperage"` the number of subjects per growth chart age and sex bin.
 #' @param agedistr A string that specifies the distribution used to create virtual subject age.
 #'   * `unif` (the default): A uniform distribution of age with a range from `agemin` to `agemax`.
 #'   * `norm`: A truncated normal distribution of age with a mean of `agemean`, a standard deviation of `agesd`, and a range from `agemin` to `agemax`.
+#'   * `nperage`: An equal number of subjects per growth chart age and sex bin.
 #' @param agemean A positive numeric greater than or equal to `agemin` and less than or equal to `agemax` that specifies the mean age when `agedistr = "norm"` is specified.
-#'   * Not used for `agedistr = "unif"`.
+#'   * Only used for `agedistr = "norm"`.
 #'   * Units of postnatal age in months for `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'   * Units of gestational age in weeks for `age0to2yr_growthchart = "FENTON"`.
 #' @param agesd A numeric greater than or equal to `0` that specifies the standard deviation of age when `agedistr = "norm"` is specified.
-#'   * Not used for `agedistr = "unif"`.
+#'   * Only used for `agedistr = "norm"`.
 #'   * Units of postnatal age in months for `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'   * Units of gestational age in weeks for `age0to2yr_growthchart = "FENTON"`.
 #' @param agemin A numeric that specifies the lower range of age. Defaults to the maximum allowable range if missing.
 #'   * Must be greater than or equal to `0` months of postnatal age for `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'   * Must be greater than or equal to `22` weeks of gestational age for `age0to2yr_growthchart = "FENTON"`.
-#'   * Must be less than `agemax`.
+#'   * Must be less than or equal to `agemax`.
 #' @param agemax A numeric that specifies the upper range of age. Defaults to the maximum allowable range if missing.
 #'   * Must be less than `240` months of postnatal age for `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'   * Must be less than `41` weeks of gestational age for `age0to2yr_growthchart = "FENTON"`.
-#'   * Must be greater than `agemin`.
+#'   * Must be greater than or equal to `agemin`.
 #' @param prob_female A numeric value with an inclusive range of `0` to `1` that specifies the probability that a given virtual subject is female. Defaults to `0.5`.
 #' @param age0isbirth A logical that specifies whether age equal to zero denotes birth.
 #'   * `TRUE`: Age of `0` is birth.
@@ -109,8 +110,6 @@
 #'    An error will be returned if the simulation fails.
 #' @export
 #'
-#' @seealso [sim_kid_nperagebin()] to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
-#'
 #' @examples
 #' # Simulate 1 subject with an age randomly sampled from a uniform distribution of ages ranging
 #' #    from 0 to 20 years using CDC growth charts.
@@ -130,6 +129,9 @@
 #'   agedistr = "unif", agemin = 12, agemax = 24,
 #'   age0to2yr_growthchart = "WHO"
 #' )
+#' 
+#' # Simulate 1 subject per age bin and per sex using CDC growth charts
+#' df_kids <- sim_kid(agedistr = "nperage")
 sim_kid <- function(
   num = 1,
   agedistr = "unif",
@@ -178,7 +180,95 @@ sim_kid <- function(
   
   ## INITIALIZE OUTPUT DATA FRAME ####
   
+  demo <- data.frame(
+    ID = seq_len(num), 
+    SEXF = NA,
+    AGEMO = NA,
+    AGE = NA,
+    GAWK = 40,
+    WTKG = NA,
+    HTCM = NA,
+    BMI = NA,
+    BSA1 = NA,
+    BSA2 = NA,
+    BSA3 = NA,
+    ZWTKG = NA,
+    ZHTCM = NA,
+    PWTKG = NA,
+    PHTCM = NA
+  )
   
+  ## AGE AND SEX ####
+  
+  AGEMO <- HTCM <- WTKG <- NULL
+  
+  if(agedistr == "unif"){
+    
+    withr::with_seed(seedl[1], demo$AGEMO <- floor(stats::runif(num, agemin, agemax)))
+    
+  }else if(agedistr == "norm"){
+    
+    demo$AGEMO <- round(agemean)
+    if(agesd > 0){
+      withr::with_seed(seedl[1], demo$AGEMO <- floor(msm::rtnorm(num, agemean, agesd, agemin, agemax)))
+    }
+    
+  }else if(agedistr == "nperage"){
+    
+    agegrp <- seq(agemin,agemax)
+    
+    demo <- data.frame(
+      ID = seq(1,num*2*length(agegrp)),
+      SEXF=rep(c(0,1),length(agegrp)*num),
+      AGEMO = sort(rep(agegrp,num*2)),
+      AGE = NA,
+      GAWK = 40,
+      WTKG = NA,
+      HTCM = NA,
+      BMI = NA,
+      BSA1 = NA,
+      BSA2 = NA,
+      BSA3 = NA,
+      ZWTKG = NA,
+      ZHTCM = NA,
+      PWTKG = NA,
+      PHTCM = NA
+    )
+  }
+  
+  demo <- demo %>% dplyr::mutate(AGE = round(AGEMO/12,3))
+  
+  if(age0to2yr_growthchart == "FENTON"){
+    
+    demo <- demo %>%
+      dplyr::mutate(
+        GAWK = round(AGEMO),
+        AGEMO = 0,
+        AGE = 0
+      )
+  }
+  
+  if(agedistr != "nperage"){
+    
+    withr::with_seed(seedl[2], demo$SEXF <- randomizr::complete_ra(num, conditions = c(0,1), prob_each = c(1-prob_female, prob_female)))
+  }
+  
+  ## SIMULATE HTCM AND WTKG ####
+  
+  
+  ## CALCULATE BMI AND BSA ####
+  
+  demo <- demo%>%
+    dplyr::mutate(BMI = ifelse(!is.na(HTCM), round(WTKG/((HTCM/100)^2),1), NA))%>%
+    dplyr::mutate(
+      BSA1 = ifelse(!is.na(HTCM), round(sqrt(WTKG*HTCM/3600),2), NA),                 # Mosteller
+      BSA2 = ifelse(!is.na(HTCM), round(0.0235*(WTKG^0.51456)*(HTCM^0.42246),2), NA), # Gehan
+      BSA3 = ifelse(!is.na(HTCM), round(0.007184*(WTKG^0.425)*(HTCM^0.725),2), NA)    # DuBois
+    )
+  
+  ## RETURN ####
+  
+  demo
   
   ## END ####
 }
