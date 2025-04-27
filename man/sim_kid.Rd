@@ -116,7 +116,7 @@ A data frame with the number of rows equal to \code{num} and columns of:
 \item \code{ZHTCM}: The z-score of height-for-age.
 \item \code{PWTKG}: The percentile of weight corresponding to the respective z-score.
 \item \code{PHTCM}: The percentile of height corresponding to the respective z-score.
-A warning will be returned if the simulation fails.
+An error will be returned if the simulation fails.
 }
 }
 \description{

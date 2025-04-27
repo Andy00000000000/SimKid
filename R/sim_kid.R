@@ -106,7 +106,7 @@
 #'    * `ZHTCM`: The z-score of height-for-age.
 #'    * `PWTKG`: The percentile of weight corresponding to the respective z-score.
 #'    * `PHTCM`: The percentile of height corresponding to the respective z-score.
-#'    A warning will be returned if the simulation fails.
+#'    An error will be returned if the simulation fails.
 #' @export
 #'
 #' @seealso [sim_kid_nperagebin()] to simulate the same number of virtual subjects per age bucket reported by the anthropometric growth charts.
@@ -145,7 +145,7 @@ sim_kid <- function(
   htwt_percentile_max = NULL,
   masterseed = NULL
 ){
-  ## CHECK ARGUEMENTS ####
+  ## CHECK ARGUMENTS ####
   
   chk_arg(
     num, agedistr, agemean, agesd, agemin, agemax, prob_female, 
@@ -153,9 +153,30 @@ sim_kid <- function(
     htwt_percentile_min, htwt_percentile_max, masterseed
   )
   
-  age0to2yr_growthchart <- toupper(age0to2yr_growthchart)
+  ## INITIALIZE DEFAULT REACTIVE ARGUMENTS ####
   
-  ## INITIALIZE DEFAULT REACTIVE ARGUEMENTS ####
+  initargs <- init_arg(
+    age0to2yr_growthchart = toupper(age0to2yr_growthchart),
+    agemin = agemin, agemax = agemax,
+    htwt_percentile_min = htwt_percentile_min, htwt_percentile_max = htwt_percentile_max
+  )
+  
+  agemin <- initargs$agemin
+  agemax <- initargs$agemax
+  htwt_percentile_min <- initargs$htwt_percentile_min
+  htwt_percentile_max <- initargs$htwt_percentile_max
+  
+  ## MANIP INPUT ARGUMENTS ####
+  
+  age0to2yr_growthchart <- toupper(age0to2yr_growthchart)
+  zscore_min <- stats::qnorm(htwt_percentile_min)
+  zscore_max <- stats::qnorm(htwt_percentile_max)
+  
+  ## GET SEEDS IF MASTERSEED != NULL ####
+  
+  seedl <- get_seeds(masterseed)
+  
+  ## INITIALIZE OUTPUT DATA FRAME ####
   
   
   
