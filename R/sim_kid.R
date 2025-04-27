@@ -91,7 +91,7 @@
 #'    * Defaults to `0.99` when `age0to2yr_growthchart = "FENTON"` to avoid non-viable birth weights.
 #' @param masterseed An integer ranging from `1` to `.Machine$integer.max` that sets an overall seed for the simulation to ensure reproducibility of the results. Defaults to no seed.
 #'
-#' @return A data frame with the number of rows equal to `num` and columns of:
+#' @return A data frame with the number of rows equal to `num` (except for `agedistr = "nperage"`) and columns of:
 #'    * `ID`: An integer ranging from `1` to `num` that serves as a virtual subject identifier.
 #'    * `SEXF`: An integer of value `0` for male or `1` for female.
 #'    * `AGEMO`: Postnatal age in months.

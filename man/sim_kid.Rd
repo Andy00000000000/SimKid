@@ -100,7 +100,7 @@ sim_kid(
 \item{masterseed}{An integer ranging from \code{1} to \code{.Machine$integer.max} that sets an overall seed for the simulation to ensure reproducibility of the results. Defaults to no seed.}
 }
 \value{
-A data frame with the number of rows equal to \code{num} and columns of:
+A data frame with the number of rows equal to \code{num} (except for \code{agedistr = "nperage"}) and columns of:
 \itemize{
 \item \code{ID}: An integer ranging from \code{1} to \code{num} that serves as a virtual subject identifier.
 \item \code{SEXF}: An integer of value \code{0} for male or \code{1} for female.
