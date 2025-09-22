@@ -49,4 +49,25 @@ test_that("column names correct for output", {
   )
 })
 
+test_that("No NA for SEXF output", {
+  expect_equal(
+    any(is.na(sim_kid()$SEXF)),
+    FALSE
+  )
+})
+
+test_that("No NA for AGE output", {
+  expect_equal(
+    any(is.na(sim_kid()$AGE)),
+    FALSE
+  )
+})
+
+test_that("No NA for WTKG output", {
+  expect_equal(
+    any(is.na(sim_kid()$WTKG)),
+    FALSE
+  )
+})
+
 ## END ####

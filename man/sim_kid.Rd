@@ -78,7 +78,6 @@ sim_kid(
 \itemize{
 \item \code{TRUE} (the default): Correlations are implemented between simulated height and simulated weight according to an identical internal-systems-data version of \link{cdc_ages2to20yr_correlations_by_sex_htcm_wtkg_summarized} located within the \code{data} folder.
 \item \code{FALSE}: Height and weight are simulated independently without any correlation(s). Note that this will likely result in unrealistic virtual subjects.
-\item Not applicable nor used for \code{age0to2yr_growthchart = "FENTON"}, for which height is not simulated.
 }}
 
 \item{htwt_percentile_min}{A numeric value that specifies the minimum allowed percentile of simulated height and weight, expressed as a decimal.

@@ -78,7 +78,6 @@
 #' @param age2to20yr_correlate_htwt A logical that specifies whether correlations, by sex and year of age, are implemented between simulated height and simulated weight for ages greater than or equal to 2 years old.
 #'   * `TRUE` (the default): Correlations are implemented between simulated height and simulated weight according to an identical internal-systems-data version of [cdc_ages2to20yr_correlations_by_sex_htcm_wtkg_summarized] located within the `data` folder.
 #'   * `FALSE`: Height and weight are simulated independently without any correlation(s). Note that this will likely result in unrealistic virtual subjects.
-#'   * Not applicable nor used for `age0to2yr_growthchart = "FENTON"`, for which height is not simulated.
 #' @param htwt_percentile_min A numeric value that specifies the minimum allowed percentile of simulated height and weight, expressed as a decimal.
 #'    * Must be greater than or equal to `0.001`.
 #'    * Must be less than `htwt_percentile_max`.
@@ -177,6 +176,7 @@ sim_kid <- function(
   ## GET SEEDS IF MASTERSEED != NULL ####
   
   seedl <- get_seeds(masterseed)
+  seedindex <- 1
   
   ## INITIALIZE OUTPUT DATA FRAME ####
   
@@ -204,13 +204,15 @@ sim_kid <- function(
   
   if(agedistr == "unif"){
     
-    withr::with_seed(seedl[1], demo$AGEMO <- floor(stats::runif(num, agemin, agemax)))
+    withr::with_seed(seedl[seedindex], demo$AGEMO <- floor(stats::runif(num, agemin, agemax)))
+    seedindex <- seedindex + 1
     
   }else if(agedistr == "norm"){
     
     demo$AGEMO <- round(agemean)
     if(agesd > 0){
-      withr::with_seed(seedl[1], demo$AGEMO <- floor(msm::rtnorm(num, agemean, agesd, agemin, agemax)))
+      withr::with_seed(seedl[seedindex], demo$AGEMO <- floor(msm::rtnorm(num, agemean, agesd, agemin, agemax)))
+      seedindex <- seedindex + 1
     }
     
   }else if(agedistr == "nperage"){
@@ -234,6 +236,8 @@ sim_kid <- function(
       PWTKG = NA,
       PHTCM = NA
     )
+    
+    num <- nrow(demo)
   }
   
   demo <- demo %>% dplyr::mutate(AGE = round(AGEMO/12,3))
@@ -250,21 +254,113 @@ sim_kid <- function(
   
   if(agedistr != "nperage"){
     
-    withr::with_seed(seedl[2], demo$SEXF <- randomizr::complete_ra(num, conditions = c(0,1), prob_each = c(1-prob_female, prob_female)))
+    withr::with_seed(seedl[seedindex], demo$SEXF <- randomizr::complete_ra(num, conditions = c(0,1), prob_each = c(1-prob_female, prob_female)))
+    seedindex <- seedindex + 1
   }
   
   ## SIMULATE HTCM AND WTKG ####
   
+  if(age0to2yr_growthchart == "FENTON"){
+    
+    # age 0 using Fenton for preterm
+    
+    tmpdemo <- helper_kid_0preterm(demo0 = demo, seedl = seedl, seedindex = seedindex, zscore_min = zscore_min, zscore_max = zscore_max)
+    
+    seedindex <- tmpdemo$seedindex
+    tmpdemo <- tmpdemo$demo
+    
+    tmpdemo <- suppressWarnings(
+      tmpdemo %>%
+        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG)%>%
+        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG)
+    )
+    
+    demo <- suppressWarnings(
+      demo %>%
+        dplyr::left_join(tmpdemo, by = "ID")%>%
+        dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
+        dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
+        dplyr::select(-.data$WTKG1, -.data$ZWTKG1)
+    )
+    
+  }else{
+    
+    # age 0 to 2 yr
+    
+    tmpdemo <- helper_kid_0to2yr(
+      demo0 = demo, seedl = seedl, seedindex = seedindex, zscore_min = zscore_min, zscore_max = zscore_max, 
+      age0isbirth = age0isbirth, age0to2yr_growthchart = age0to2yr_growthchart
+    )
+    
+    seedindex <- tmpdemo$seedindex
+    tmpdemo <- tmpdemo$demo
+    
+    tmpdemo <- suppressWarnings(
+      tmpdemo %>%
+        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM)%>%
+        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM)
+    )
+    
+    demo <- suppressWarnings(
+      demo %>%
+        dplyr::left_join(tmpdemo, by = "ID")%>%
+        dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
+        dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
+        dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
+        dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
+        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1)
+    )
+    
+    # age 2 to 20 yr
+    
+    tmpdemo <- suppressWarnings(
+      helper_kid_2to20yr(
+        demo0 = demo, seedl = seedl, seedindex = seedindex, zscore_min = zscore_min, zscore_max = zscore_max, 
+        age2to20yr_correlate_htwt = age2to20yr_correlate_htwt
+      )
+    )
+    
+    seedindex <- tmpdemo$seedindex
+    tmpdemo <- tmpdemo$demo
+    
+    tmpdemo <- suppressWarnings(
+      tmpdemo %>%
+        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM)%>%
+        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM)
+    )
+    
+    demo <- suppressWarnings(
+      demo %>%
+        dplyr::left_join(tmpdemo, by = "ID")%>%
+        dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
+        dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
+        dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
+        dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
+        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1)
+    )
+    
+  }
+  
+  demo <- demo %>%
+    dplyr::mutate(
+      WTKG = round(WTKG, 2),
+      PWTKG = 100*stats::pnorm(.data$ZWTKG),
+      PHTCM = 100*stats::pnorm(.data$ZHTCM)
+    )
   
   ## CALCULATE BMI AND BSA ####
   
-  demo <- demo%>%
+  demo <- demo %>%
     dplyr::mutate(BMI = ifelse(!is.na(HTCM), round(WTKG/((HTCM/100)^2),1), NA))%>%
     dplyr::mutate(
       BSA1 = ifelse(!is.na(HTCM), round(sqrt(WTKG*HTCM/3600),2), NA),                 # Mosteller
       BSA2 = ifelse(!is.na(HTCM), round(0.0235*(WTKG^0.51456)*(HTCM^0.42246),2), NA), # Gehan
       BSA3 = ifelse(!is.na(HTCM), round(0.007184*(WTKG^0.425)*(HTCM^0.725),2), NA)    # DuBois
     )
+  
+  ## CHECK OUTPUT DF ####
+  
+  chk_out(demo = demo, num = num)
   
   ## RETURN ####
   
