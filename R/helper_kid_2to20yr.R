@@ -54,7 +54,7 @@ helper_kid_2to20yr <- function(
         )
       
       xi_list <- demo %>% dplyr::distinct(.data$SEXF,.data$TMPAGEGRP)
-      for(xi in 1:nrow(xi_list)){
+      for(xi in seq_len(nrow(xi_list))){
         
         cov_in <- internal_cdc_cor[which(internal_cdc_cor$AGEGRP == xi_list[xi,"TMPAGEGRP"] & internal_cdc_cor$SEXF == xi_list[xi,"SEXF"]), "MEAN_HTWT_COR"] # covariance and correlation are equal since SD=1 (Z score distributions)
         id_index <- which(demo$TMPAGEGRP == xi_list[xi,"TMPAGEGRP"] & demo$SEXF==xi_list[xi,"SEXF"])
@@ -76,7 +76,7 @@ helper_kid_2to20yr <- function(
   demo <- demo %>%
     dplyr::mutate(VAR = "HTCM")%>%
     dplyr::left_join(ped0, by = c("VAR","SEXF","AGEMO"))%>%
-    dplyr::mutate(HTCM = ifelse(round(.data$L,1E-6) == 0, .data$M*exp(.data$S*.data$ZHTCM), .data$M*(1+.data$L*.data$S*.data$ZHTCM)^(1/.data$L)))%>%
+    dplyr::mutate(HTCM = lms_calc(z = .data$ZHTCM, l = .data$L, m = .data$M, s = .data$S))%>%
     dplyr::mutate(HTCM_DIGITS = digits_htcm)%>%
     dplyr::mutate(HTCM = ifelse(.data$HTCM_DIGITS == 1, 0.5*round(2*.data$HTCM), round(.data$HTCM))) # nearest 0.5
   
@@ -87,13 +87,13 @@ helper_kid_2to20yr <- function(
   demo <- demo %>%
     dplyr::mutate(VAR = "WTKG")%>%
     dplyr::left_join(ped0, by = c("VAR","SEXF","AGEMO"))%>%
-    dplyr::mutate(WTKG = ifelse(round(.data$L,1E-6) == 0, .data$M*exp(.data$S*.data$ZWTKG), .data$M*(1+.data$L*.data$S*.data$ZWTKG)^(1/.data$L)))
+    dplyr::mutate(WTKG = lms_calc(z = .data$ZWTKG, l = .data$L, m = .data$M, s = .data$S))
   
   demo <- demo[,which(colnames(demo) %in% colnames(demo0))]
   
   ## RETURN ####
   
-  return(list(demo = demo, seedindex = seedindex))
+  list(demo = demo, seedindex = seedindex)
   
   ## END ####
 }

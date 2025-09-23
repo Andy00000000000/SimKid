@@ -70,4 +70,22 @@ test_that("No NA for WTKG output", {
   )
 })
 
+test_that("spot check simulation output", {
+  
+  kid0 <- internal_kid0 %>%
+    dplyr::filter(.data$CHART == "CDC", .data$VAR == "WTKG", .data$SEXF == 0, .data$AGEGRP == "[216,217)")
+  
+  expected <- kid0$P50
+  
+  actual <- sim_kid(
+    num = 1, agedistr = "norm", agemean = 216, agesd = 0, prob_female = 0, 
+    age2to20yr_correlate_htwt = FALSE, htwt_percentile_min = 0.500, htwt_percentile_max = 0.500
+  )$WTKG
+  
+  expect_equal(
+    round(expected,2),
+    actual
+  )
+})
+
 ## END ####

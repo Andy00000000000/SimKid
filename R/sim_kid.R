@@ -80,12 +80,12 @@
 #'   * `FALSE`: Height and weight are simulated independently without any correlation(s). Note that this will likely result in unrealistic virtual subjects.
 #' @param htwt_percentile_min A numeric value that specifies the minimum allowed percentile of simulated height and weight, expressed as a decimal.
 #'    * Must be greater than or equal to `0.001`.
-#'    * Must be less than `htwt_percentile_max`.
+#'    * Must be less than `htwt_percentile_max` when `age2to20yr_correlate_htwt = TRUE`. Must be less than or equal to `htwt_percentile_max` when `age2to20yr_correlate_htwt = FALSE`.
 #'    * Defaults to `0.001` when `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'    * Defaults to `0.01` when `age0to2yr_growthchart = "FENTON"` to avoid non-viable birth weights.
 #' @param htwt_percentile_max A numeric value that specifies the maximum allowed percentile of simulated height and weight, expressed as a decimal.
 #'    * Must be less than or equal to `0.999`.
-#'    * Must be greater than `htwt_percentile_min`.
+#'    * Must be greater than `htwt_percentile_min` when `age2to20yr_correlate_htwt = TRUE`. Must be greater than or equal to `htwt_percentile_min` when `age2to20yr_correlate_htwt = FALSE`..
 #'    * Defaults to `0.999` when `age0to2yr_growthchart = "CDC"` or `age0to2yr_growthchart = "WHO"`.
 #'    * Defaults to `0.99` when `age0to2yr_growthchart = "FENTON"` to avoid non-viable birth weights.
 #' @param masterseed An integer ranging from `1` to `.Machine$integer.max` that sets an overall seed for the simulation to ensure reproducibility of the results. Defaults to no seed.
@@ -269,7 +269,7 @@ sim_kid <- function(
     seedindex <- tmpdemo$seedindex
     tmpdemo <- tmpdemo$demo
     
-    tmpdemo <- suppressWarnings(
+    tmpdemo <- suppressWarnings( # dplyr gives warning that .data$VAR is deprecated, but cran check requires .data$VAR to avoid missing global warning
       tmpdemo %>%
         dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG)%>%
         dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG)

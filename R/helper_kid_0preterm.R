@@ -34,13 +34,13 @@ helper_kid_0preterm <- function(
   demo <- demo %>%
     dplyr::mutate(VAR = "WTKG")%>%
     dplyr::left_join(ped0, by = c("VAR","SEXF","GAWK"))%>%
-    dplyr::mutate(WTKG = ifelse(round(.data$L,1E-6) == 0, .data$M*exp(.data$S*.data$ZWTKG), .data$M*(1+.data$L*.data$S*.data$ZWTKG)^(1/.data$L)))
+    dplyr::mutate(WTKG = lms_calc(z = .data$ZWTKG, l = .data$L, m = .data$M, s = .data$S))
   
   demo <- demo[,which(colnames(demo) %in% colnames(demo0))]
   
   ## RETURN ####
   
-  return(list(demo = demo, seedindex = seedindex))
+  list(demo = demo, seedindex = seedindex)
   
   ## END ####
 }

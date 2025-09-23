@@ -401,8 +401,12 @@ test_that("htwt_percentile_max > max allowed", {
   expect_error(chk_arg(htwt_percentile_max = 0.9991))
 })
 
-test_that("htwt_percentile_max = htwt_percentile_min", {
-  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6))
+test_that("htwt_percentile_max = htwt_percentile_min when age2to20yr_correlate_htwt is TRUE", {
+  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, age2to20yr_correlate_htwt = TRUE))
+})
+
+test_that("htwt_percentile_max = htwt_percentile_min when age2to20yr_correlate_htwt is FALSE", {
+  expect_no_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, age2to20yr_correlate_htwt = FALSE))
 })
 
 test_that("htwt_percentile_max < htwt_percentile_min", {

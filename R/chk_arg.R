@@ -75,7 +75,8 @@ chk_arg <- function( # same defaults as sim_kid() to facilitate testthat unit te
   
   if(!is.null(htwt_percentile_min) && (length(htwt_percentile_min) != 1L || !is.numeric(htwt_percentile_min) || htwt_percentile_min < 0.001 || htwt_percentile_min > 0.998)){stop("htwt_percentile_min must be numeric of length one and between 0.001 to 0.998, inclusively")}
   if(!is.null(htwt_percentile_max) && (length(htwt_percentile_max) != 1L || !is.numeric(htwt_percentile_max) || htwt_percentile_max < 0.002 || htwt_percentile_max > 0.999)){stop("htwt_percentile_max must be numeric of length one and between 0.002 to 0.999, inclusively")}
-  if(!is.null(htwt_percentile_min) && !is.null(htwt_percentile_max) && (htwt_percentile_min >= htwt_percentile_max)){stop("htwt_percentile_min must be less than htwt_percentile_max")}
+  if(age2to20yr_correlate_htwt != TRUE && !is.null(htwt_percentile_min) && !is.null(htwt_percentile_max) && (htwt_percentile_min > htwt_percentile_max)){stop("htwt_percentile_min must be less than or equal to htwt_percentile_max")}
+  if(age2to20yr_correlate_htwt == TRUE && !is.null(htwt_percentile_min) && !is.null(htwt_percentile_max) && (htwt_percentile_min >= htwt_percentile_max)){stop("htwt_percentile_min must be less than htwt_percentile_max when age2to20yr_correlate_htwt is TRUE")}
   if(toupper(age0to2yr_growthchart) == "FENTON" && !is.null(htwt_percentile_min) && htwt_percentile_min < 0.01){warning("htwt_percentile_min < 0.01 for age0to2yr_growthchart = \"FENTON\" may produce nonviable or unrealistic birth weights")}
   if(toupper(age0to2yr_growthchart) == "FENTON" && !is.null(htwt_percentile_max) && htwt_percentile_max > 0.99){warning("htwt_percentile_max > 0.99 for age0to2yr_growthchart = \"FENTON\" may produce nonviable or unrealistic birth weights")}
   

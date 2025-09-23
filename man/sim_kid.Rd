@@ -83,7 +83,7 @@ sim_kid(
 \item{htwt_percentile_min}{A numeric value that specifies the minimum allowed percentile of simulated height and weight, expressed as a decimal.
 \itemize{
 \item Must be greater than or equal to \code{0.001}.
-\item Must be less than \code{htwt_percentile_max}.
+\item Must be less than \code{htwt_percentile_max} when \code{age2to20yr_correlate_htwt = TRUE}. Must be less than or equal to \code{htwt_percentile_max} when \code{age2to20yr_correlate_htwt = FALSE}.
 \item Defaults to \code{0.001} when \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Defaults to \code{0.01} when \code{age0to2yr_growthchart = "FENTON"} to avoid non-viable birth weights.
 }}
@@ -91,7 +91,7 @@ sim_kid(
 \item{htwt_percentile_max}{A numeric value that specifies the maximum allowed percentile of simulated height and weight, expressed as a decimal.
 \itemize{
 \item Must be less than or equal to \code{0.999}.
-\item Must be greater than \code{htwt_percentile_min}.
+\item Must be greater than \code{htwt_percentile_min} when \code{age2to20yr_correlate_htwt = TRUE}. Must be greater than or equal to \code{htwt_percentile_min} when \code{age2to20yr_correlate_htwt = FALSE}..
 \item Defaults to \code{0.999} when \code{age0to2yr_growthchart = "CDC"} or \code{age0to2yr_growthchart = "WHO"}.
 \item Defaults to \code{0.99} when \code{age0to2yr_growthchart = "FENTON"} to avoid non-viable birth weights.
 }}
