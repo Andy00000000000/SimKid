@@ -45,7 +45,7 @@ test_that("nrows correct for given num", {
 test_that("column names correct for output", {
   expect_equal(
     colnames(sim_kid()),
-    c("ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM","BMI","BSA1","BSA2","BSA3","ZWTKG","ZHTCM","PWTKG","PHTCM")
+    c("ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM","BMI","BSA1","BSA2","BSA3","ZWTKG","ZHTCM","PWTKG","PHTCM","CHART")
   )
 })
 

@@ -2,6 +2,7 @@
 
 export("%>%")
 export(get_seeds)
+export(grow_kid)
 export(lms_calc)
 export(sim_kid)
 importFrom(magrittr,"%>%")

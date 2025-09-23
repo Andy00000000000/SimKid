@@ -106,6 +106,7 @@
 #'    * `ZHTCM`: The z-score of height-for-age.
 #'    * `PWTKG`: The percentile of weight corresponding to the respective z-score.
 #'    * `PHTCM`: The percentile of height corresponding to the respective z-score.
+#'    * `CHART`: The anthropometric growth chart used.
 #'    An error will be returned if the simulation fails.
 #' @export
 #'
@@ -195,7 +196,8 @@ sim_kid <- function(
     ZWTKG = NA,
     ZHTCM = NA,
     PWTKG = NA,
-    PHTCM = NA
+    PHTCM = NA,
+    CHART = NA
   )
   
   ## AGE AND SEX ####
@@ -234,7 +236,8 @@ sim_kid <- function(
       ZWTKG = NA,
       ZHTCM = NA,
       PWTKG = NA,
-      PHTCM = NA
+      PHTCM = NA,
+      CHART = NA
     )
     
     num <- nrow(demo)
@@ -248,7 +251,8 @@ sim_kid <- function(
       dplyr::mutate(
         GAWK = round(AGEMO),
         AGEMO = 0,
-        AGE = 0
+        AGE = 0,
+        CHART = "FENTON"
       )
   }
   
@@ -297,8 +301,8 @@ sim_kid <- function(
     
     tmpdemo <- suppressWarnings(
       tmpdemo %>%
-        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM)%>%
-        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM)
+        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM, .data$CHART)%>%
+        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM, CHART1 = .data$CHART)
     )
     
     demo <- suppressWarnings(
@@ -308,7 +312,8 @@ sim_kid <- function(
         dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
         dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
         dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
-        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1)
+        dplyr::mutate(CHART = ifelse(is.na(.data$CHART), .data$CHART1, .data$CHART))%>%
+        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1, -.data$CHART1)
     )
     
     # age 2 to 20 yr
@@ -325,8 +330,8 @@ sim_kid <- function(
     
     tmpdemo <- suppressWarnings(
       tmpdemo %>%
-        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM)%>%
-        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM)
+        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM, .data$CHART)%>%
+        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM, CHART1 = .data$CHART)
     )
     
     demo <- suppressWarnings(
@@ -336,7 +341,8 @@ sim_kid <- function(
         dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
         dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
         dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
-        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1)
+        dplyr::mutate(CHART = ifelse(is.na(.data$CHART), .data$CHART1, .data$CHART))%>%
+        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1, -.data$CHART1)
     )
     
   }

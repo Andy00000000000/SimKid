@@ -413,6 +413,10 @@ test_that("htwt_percentile_max < htwt_percentile_min", {
   expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.5))
 })
 
+test_that("htwt_percentile_max < htwt_percentile_min when age2to20yr_correlate_htwt is FALSE", {
+  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.5, age2to20yr_correlate_htwt = FALSE))
+})
+
 test_that("htwt_percentile_max > max suggested for Fenton", {
   expect_warning(chk_arg(htwt_percentile_max = 0.991, age0to2yr_growthchart = "FENTON"))
 })

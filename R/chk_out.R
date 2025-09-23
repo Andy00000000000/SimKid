@@ -18,8 +18,8 @@ chk_out <- function(demo = NULL, num = NULL){
     stop("Error: The number of output rows is incorrect. Please check that input arguments are correctly specified. If correct, please reach out for support.")
   }
 
-  tmp_correct <- as.data.frame(matrix(0,nrow = 1, ncol = 15))
-  colnames(tmp_correct) <- c("ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM","BMI","BSA1","BSA2","BSA3","ZWTKG","ZHTCM","PWTKG","PHTCM")
+  tmp_correct <- as.data.frame(matrix(0,nrow = 1, ncol = 16))
+  colnames(tmp_correct) <- c("ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM","BMI","BSA1","BSA2","BSA3","ZWTKG","ZHTCM","PWTKG","PHTCM","CHART")
   tmp_test <- paste0(colnames(demo), collapse = ".")
   tmp_correct <- paste0(colnames(tmp_correct), collapse = ".")
   if(tmp_test != tmp_correct){
