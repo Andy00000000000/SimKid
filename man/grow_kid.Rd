@@ -16,7 +16,7 @@ grow_kid(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
 \item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input option used. Default of \code{FALSE}.}
 }
 \value{
-A data frame with columns matching those of \code{data} and the number of rows equal to \code{nrow(data)+grow_time/tstep}.
+A data frame with columns matching those of \code{data} and the number of rows equal to \code{nrow(data)*(1+grow_time/tstep)-nsubtract}. Where nsubtract is the number of records with age greater than 240 months.
 }
 \description{
 Following creation of a virtual population using \code{sim_kid()}, each virtual subject grows from their baseline age.

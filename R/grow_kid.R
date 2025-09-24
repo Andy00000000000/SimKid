@@ -13,7 +13,7 @@
 #' @param tstep A positive numeric specifying the time step for growth in months. Default of `1`. Will be rounded to the nearest month.
 #' @param age0isbirth Logical `TRUE` or `FALSE` matching the `sim_kid()` input option used. Default of `FALSE`.
 #'
-#' @return A data frame with columns matching those of `data` and the number of rows equal to `nrow(data)+grow_time/tstep`.
+#' @return A data frame with columns matching those of `data` and the number of rows equal to `nrow(data)*(1+grow_time/tstep)-nsubtract`. Where nsubtract is the number of records with age greater than 240 months.
 #' @export
 #'
 #' @examples
@@ -49,6 +49,11 @@ grow_kid <- function(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
     dplyr::mutate(AGEMO = .data$AGEMO + .data$MONTH)%>%
     dplyr::mutate(AGE = round(.data$AGEMO/12,3))
   
+  nsubtract <- nrow(data1[which(data1$AGEMO > 239),])
+  
+  data1 <- data1 %>%
+    dplyr::filter(.data$AGEMO <= 239)
+  
   if(nrow(data1[which(data1$AGEMO <= 24),]) > 0){
     data1 <- helper_kid_0to2yr(
       demo0 = data1, age0isbirth = age0isbirth, age0to2yr_growthchart = unique(data1[which(data1$AGEMO <= 24), "CHART"]), sim_z = FALSE
@@ -61,7 +66,7 @@ grow_kid <- function(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
   
   data1 <- calc_bmi_bsa(data1)
   
-  suppressWarnings(chk_out(demo = data1 %>% dplyr::select(-.data$MONTH), num = nrow(data)*(1+grow_time/tstep)))
+  suppressWarnings(chk_out(demo = data1 %>% dplyr::select(-.data$MONTH), num = nrow(data)*(1+grow_time/tstep)-nsubtract))
   
   data1
 }
