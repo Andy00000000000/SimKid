@@ -7,7 +7,7 @@
 #' @return Nothing if checks are successful, otherwise warnings and/or errors.
 #'
 #' @noRd
-chk_arg_grow <- function(data = NULL, grow_time = NULL, tstep = NULL, tunit = NULL){
+chk_arg_grow <- function(data = NULL, grow_time = NULL, tstep = NULL, age0isbirth = NULL){
   
   if(inherits(data,"data.frame") == FALSE){
     stop("Error: data must be a data frame.")
@@ -21,12 +21,9 @@ chk_arg_grow <- function(data = NULL, grow_time = NULL, tstep = NULL, tunit = NU
     stop("Error: tstep must be a positive numeric of length one.")
   }
   
-  if(inherits(tunit,"character") == FALSE || length(tunit) != 1 || !(tunit %in% c("month","year"))){
-    stop("Error: tunit must either be \"month\" or \"year\".")
-  }
-  
   if(all(c("ID","SEXF","AGEMO","ZWTKG","ZHTCM","CHART") %in% colnames(data)) == FALSE){
     stop("Error: data must have columns of ID, SEXF, AGEMO, ZWTKG, ZHTCM, and CHART.")
   }
   
+  if(length(age0isbirth) != 1L || !is.logical(age0isbirth) || is.na(age0isbirth)){stop("age0isbirth must be logical of length one (\"TRUE\" or \"FALSE\")")}
 }

@@ -8,7 +8,10 @@
 #' @param age2to20yr_correlate_htwt A logical that specifies whether correlations, by sex and year of age, are implemented between simulated height and simulated weight for ages greater than or equal to 2 years old.
 #'   * `TRUE` (the default): Correlations are implemented between simulated height and simulated weight according to an identical internal-systems-data version of [cdc_ages2to20yr_correlations_by_sex_htcm_wtkg_summarized] located within the `data` folder.
 #'   * `FALSE`: Height and weight are simulated independently without any correlation(s). Note that this will likely result in unrealistic virtual subjects.
-#'
+#' @param sim_z A logical that specifies whether to simulate Z score variability.
+#'   * `TRUE` (the default).
+#'   * `FALSE`.
+#'   
 #' @return A data frame with rows and columns matching `demo0`.
 #'
 #' @noRd
@@ -18,7 +21,8 @@ helper_kid_2to20yr <- function(
     seedindex = NULL,
     zscore_min = NULL,
     zscore_max = NULL,
-    age2to20yr_correlate_htwt = NULL
+    age2to20yr_correlate_htwt = NULL,
+    sim_z = TRUE
 ){
   ## MANIP TO READY ####
   
@@ -35,7 +39,7 @@ helper_kid_2to20yr <- function(
   
   ## GENERATE VARIABILITY ####
   
-  if(nrow(demo)>0){
+  if(nrow(demo)>0 && sim_z == TRUE){
     if(age2to20yr_correlate_htwt == FALSE){
       
       withr::with_seed(seedl[seedindex], demo$ZHTCM <- msm::rtnorm(nrow(demo), 0, 1, zscore_min, zscore_max))
@@ -90,6 +94,25 @@ helper_kid_2to20yr <- function(
     dplyr::mutate(WTKG = lms_calc(z = .data$ZWTKG, l = .data$L, m = .data$M, s = .data$S))
   
   demo <- demo[,which(colnames(demo) %in% colnames(demo0))]
+  
+  ## COMBINE WITH DEMO0 ####
+  
+  demo <- suppressWarnings(
+    demo %>%
+      dplyr::select(.data$ID, .data$AGEMO, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM, .data$CHART)%>%
+      dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM, CHART1 = .data$CHART)
+  )
+  
+  demo <- suppressWarnings(
+    demo0 %>%
+      dplyr::left_join(demo, by = c("ID","AGEMO"))%>%
+      dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
+      dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
+      dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
+      dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
+      dplyr::mutate(CHART = ifelse(is.na(.data$CHART), .data$CHART1, .data$CHART))%>%
+      dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1, -.data$CHART1)
+  )
   
   ## RETURN ####
   

@@ -297,54 +297,17 @@ sim_kid <- function(
     )
     
     seedindex <- tmpdemo$seedindex
-    tmpdemo <- tmpdemo$demo
-    
-    tmpdemo <- suppressWarnings(
-      tmpdemo %>%
-        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM, .data$CHART)%>%
-        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM, CHART1 = .data$CHART)
-    )
-    
-    demo <- suppressWarnings(
-      demo %>%
-        dplyr::left_join(tmpdemo, by = "ID")%>%
-        dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
-        dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
-        dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
-        dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
-        dplyr::mutate(CHART = ifelse(is.na(.data$CHART), .data$CHART1, .data$CHART))%>%
-        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1, -.data$CHART1)
-    )
+    demo <- tmpdemo$demo
     
     # age 2 to 20 yr
     
-    tmpdemo <- suppressWarnings(
-      helper_kid_2to20yr(
-        demo0 = demo, seedl = seedl, seedindex = seedindex, zscore_min = zscore_min, zscore_max = zscore_max, 
-        age2to20yr_correlate_htwt = age2to20yr_correlate_htwt
-      )
-    )
+    tmpdemo <- suppressWarnings(helper_kid_2to20yr(
+      demo0 = demo, seedl = seedl, seedindex = seedindex, zscore_min = zscore_min, zscore_max = zscore_max, 
+      age2to20yr_correlate_htwt = age2to20yr_correlate_htwt
+    ))
     
     seedindex <- tmpdemo$seedindex
-    tmpdemo <- tmpdemo$demo
-    
-    tmpdemo <- suppressWarnings(
-      tmpdemo %>%
-        dplyr::select(.data$ID, .data$WTKG, .data$ZWTKG, .data$HTCM, .data$ZHTCM, .data$CHART)%>%
-        dplyr::rename(WTKG1 = .data$WTKG, ZWTKG1 = .data$ZWTKG, HTCM1 = .data$HTCM, ZHTCM1 = .data$ZHTCM, CHART1 = .data$CHART)
-    )
-    
-    demo <- suppressWarnings(
-      demo %>%
-        dplyr::left_join(tmpdemo, by = "ID")%>%
-        dplyr::mutate(WTKG = ifelse(is.na(.data$WTKG), .data$WTKG1, .data$WTKG))%>%
-        dplyr::mutate(ZWTKG = ifelse(is.na(.data$ZWTKG), .data$ZWTKG1, .data$ZWTKG))%>%
-        dplyr::mutate(HTCM = ifelse(is.na(.data$HTCM), .data$HTCM1, .data$HTCM))%>%
-        dplyr::mutate(ZHTCM = ifelse(is.na(.data$ZHTCM), .data$ZHTCM1, .data$ZHTCM))%>%
-        dplyr::mutate(CHART = ifelse(is.na(.data$CHART), .data$CHART1, .data$CHART))%>%
-        dplyr::select(-.data$WTKG1, -.data$ZWTKG1, -.data$HTCM1, -.data$ZHTCM1, -.data$CHART1)
-    )
-    
+    demo <- tmpdemo$demo
   }
   
   demo <- demo %>%
@@ -356,13 +319,7 @@ sim_kid <- function(
   
   ## CALCULATE BMI AND BSA ####
   
-  demo <- demo %>%
-    dplyr::mutate(BMI = ifelse(!is.na(HTCM), round(WTKG/((HTCM/100)^2),1), NA))%>%
-    dplyr::mutate(
-      BSA1 = ifelse(!is.na(HTCM), round(sqrt(WTKG*HTCM/3600),2), NA),                 # Mosteller
-      BSA2 = ifelse(!is.na(HTCM), round(0.0235*(WTKG^0.51456)*(HTCM^0.42246),2), NA), # Gehan
-      BSA3 = ifelse(!is.na(HTCM), round(0.007184*(WTKG^0.425)*(HTCM^0.725),2), NA)    # DuBois
-    )
+  demo <- calc_bmi_bsa(demo)
   
   ## CHECK OUTPUT DF ####
   

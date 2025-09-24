@@ -4,20 +4,16 @@
 \alias{grow_kid}
 \title{Grow the simulated virtual subjects using anthropometric growth chart data}
 \usage{
-grow_kid(data = NULL, grow_time = 0, tstep = 1, tunit = "month")
+grow_kid(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
 }
 \arguments{
 \item{data}{A data frame created by \code{sim_kid()}.}
 
-\item{grow_time}{A non-negative numeric specifying the duration of time the virtual subjects are allowed to grow for.}
+\item{grow_time}{A non-negative numeric specifying the duration of time in months the virtual subjects are allowed to grow for. Will be rounded to the nearest month.}
 
-\item{tstep}{A positive numeric specifying the time step for growth. Default of \code{1}.}
+\item{tstep}{A positive numeric specifying the time step for growth in months. Default of \code{1}. Will be rounded to the nearest month.}
 
-\item{tunit}{The time unit. Options of:
-\itemize{
-\item \code{month} (default).
-\item \code{year}
-}}
+\item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input option used. Default of \code{FALSE}.}
 }
 \value{
 A data frame with columns matching those of \code{data} and the number of rows equal to \code{nrow(data)+grow_time/tstep}.
