@@ -12,9 +12,9 @@
 #' @noRd
 helper_valplot <- function(data = NULL, ped0 = NULL, age0to2yr_chart = NULL, x = NULL, y = NULL, overlay_percentile = NULL){
   
-  pt_alpha <- 0.1
+  pt_alpha <- 0.4
   ln_alpha <- 0.8
-  rb_alpha <- 0.5
+  rb_alpha <- 0.4
   
   pt_color <- "lightblue"
   ln_color <- "purple"
@@ -24,8 +24,7 @@ helper_valplot <- function(data = NULL, ped0 = NULL, age0to2yr_chart = NULL, x =
     dplyr::filter(.data$VAR == y)
   
   tmp_ped$X <- tmp_ped[,x]
-  tmp_ped$Y <- tmp_ped[,y]
-  
+
   tmp_demo <- data %>%
     dplyr::mutate(SEXF = ifelse(.data$SEXF==0, "Male", "Female"))
   
@@ -47,17 +46,26 @@ helper_valplot <- function(data = NULL, ped0 = NULL, age0to2yr_chart = NULL, x =
     paste0("Note: 3rd, 10th, 50th, 90th, 97th percentiles of growth charts (black lines)\n     are overlaid with the individual virtual subjects (",pt_color," points)")
   )
   
-  xbreaks <- ifelse(
-    age0to2yr_chart != "FENTON", 
-    c(seq(0,24,6),seq(24,240,12)),
-    seq(22,40,2)
-  )
+  if(age0to2yr_chart != "FENTON"){
+    xbreaks <- c(seq(0,24,6),seq(24,240,12))
+  }else{
+    xbreaks <- seq(22,40,2)
+  }
   
-  tmpp <- ggplot2::ggplot()+ # Raw simulated virtual subject data
-    ggplot2::geom_point(ggplot2::aes(x = .data$X, y = .data$Y), tmp_demo, alpha = pt_alpha, color = pt_color)+
-    ggplot2::facet_wrap(~SEXF)
+  if(length(unique(tmp_demo$ID)) == nrow(tmp_demo)){
+    
+    tmpp <- ggplot2::ggplot()+ # Raw simulated virtual subject data for sim_kid()
+      ggplot2::geom_point(ggplot2::aes(x = .data$X, y = .data$Y), tmp_demo, alpha = pt_alpha, color = pt_color)+
+      ggplot2::facet_wrap(~SEXF)
+    
+  }else{
+    
+    tmpp <- ggplot2::ggplot()+ # Raw simulated virtual subject data for grow_kid() following sim_kid()
+      ggplot2::geom_line(ggplot2::aes(x = .data$X, y = .data$Y, group = as.factor(.data$ID)), tmp_demo, alpha = pt_alpha, color = pt_color)+
+      ggplot2::facet_wrap(~SEXF)
+  }
   
-  if(!is.null(overlay_percentile) == TRUE){
+  if(!is.na(overlay_percentile) == TRUE){
     
     perc_lo <- (1-overlay_percentile)/2
     perc_hi <- 1 - perc_lo

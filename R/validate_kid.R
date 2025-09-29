@@ -1,17 +1,17 @@
 #' Validate the simulated virtual subjects to anthropometric growth chart data
 #' 
 #' @description
-#' Following creation of a virtual population using `sim_kid()`, overlay scatter plots are used to validate that the virtual population is reflective of the respective anthropometric gowth chart data.
+#' Following creation of a virtual population using `sim_kid()`, overlay scatter plots are used to validate that the virtual population is reflective of the respective anthropometric growth chart data.
 #'
 #' @param data A data frame created by `sim_kid()`.
 #' @param age0isbirth Logical `TRUE` or `FALSE` matching the `sim_kid()` input option used. Default of `FALSE`.
 #' @param overlay_percentile `NA` (default) for no ribbon overlay of simulated percentiles. Or a numeric greater than `0` and less than `1` specifying the simulated percentile interval to overlay. For example, input of `0.90` would overlay the 5th and 95th percentiles of simulated data.
 #'
-#' @return A list of ggplot2 plot objects.
+#' @return A list of plot objects.
 #' @export
 #'
 #' @examples
-#' demo0 <- sim_kid()
+#' demo0 <- sim_kid() # single subject
 #' validation_plots <- validate_kid(data = demo0)
 validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = NA){
 
@@ -20,6 +20,10 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
   p3 <- NULL
   p4 <- NULL
   p5 <- NULL
+  
+  if("MONTH" %in% colnames(data)){ # to pass chk_out of dataset from grow_kid
+    data <- suppressWarnings(data %>% dplyr::select(-.data$MONTH))
+  }
   
   chk_out(data, num = nrow(data))
   chk_arg_val(age0isbirth = age0isbirth, overlay_percentile = overlay_percentile)
@@ -60,7 +64,8 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
     
     #### weight vs height ####
     
-    p3 <- helper_valplot(data = data, ped0 = htwt0 %>% dplyr::mutate(VAR = "HTCM"), age0to2yr_chart = age0to2yr_chart, x = "HTCM", y = "WTKG", overlay_percentile = overlay_percentile)
+    p3 <- helper_valplot(data = data, ped0 = htwt0 %>% dplyr::mutate(VAR = "WTKG"), age0to2yr_chart = age0to2yr_chart, x = "HTCM", y = "WTKG", overlay_percentile = overlay_percentile)
+    p3 <- suppressMessages(p3 + ggplot2::scale_x_continuous()) # remove default breaks
     
     #### bmi vs age ####
     
@@ -83,5 +88,5 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
     #### end ####
   }
   
-  list(p_validate = list(p2,p1,p3,p4,p5))
+  list(p2,p1,p3,p4,p5)
 }

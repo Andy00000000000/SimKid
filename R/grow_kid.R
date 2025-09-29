@@ -13,7 +13,7 @@
 #' @param tstep A positive numeric specifying the time step for growth in months. Default of `1`. Will be rounded to the nearest month.
 #' @param age0isbirth Logical `TRUE` or `FALSE` matching the `sim_kid()` input option used. Default of `FALSE`.
 #'
-#' @return A data frame with columns matching those of `data` and the number of rows equal to `nrow(data)*(1+grow_time/tstep)-nsubtract`. Where nsubtract is the number of records with age greater than 240 months.
+#' @return A data frame with columns matching those of `data` and the number of rows equal to `nrow(data)*(1+grow_time/tstep)-nsubtract`. Where `nsubtract` is the number of records with age greater than 240 months.
 #' @export
 #'
 #' @examples
