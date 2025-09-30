@@ -4,7 +4,12 @@
 \alias{validate_kid}
 \title{Validate the simulated virtual subjects to anthropometric growth chart data}
 \usage{
-validate_kid(data = NULL, age0isbirth = FALSE, overlay_percentile = NA)
+validate_kid(
+  data = NULL,
+  age0isbirth = FALSE,
+  overlay_percentile = NA,
+  alpha = 0.4
+)
 }
 \arguments{
 \item{data}{A data frame created by \code{sim_kid()}.}
@@ -12,6 +17,8 @@ validate_kid(data = NULL, age0isbirth = FALSE, overlay_percentile = NA)
 \item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input option used. Default of \code{FALSE}.}
 
 \item{overlay_percentile}{\code{NA} (default) for no ribbon overlay of simulated percentiles. Or a numeric greater than \code{0} and less than \code{1} specifying the simulated percentile interval to overlay. For example, input of \code{0.90} would overlay the 5th and 95th percentiles of simulated data.}
+
+\item{alpha}{Numeric between \code{0} and \code{1} specifying the simulated data transparency in validation plots. Default of \code{0.4}.}
 }
 \value{
 A list of plot objects.

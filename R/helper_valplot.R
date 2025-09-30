@@ -6,15 +6,16 @@
 #' @param x String of length one specifying the x-axis variable.
 #' @param y String of length one specifying the y-axis variable.
 #' @param overlay_percentile `NULL` (default) for no ribbon overlay of simulated percentiles. Or a numeric greater than `0` and less than `1` specifying the simulated percentile interval to overlay. For example, input of `0.90` would overlay the 5th and 95th percentiles of simulated data.
+#' @param alpha Numeric between `0` and `1` specifying the simulated data transparency in validation plots. Default of `0.4`.
 #'
 #' @return A list of 5 ggplot2 plot objects.
 #'
 #' @noRd
-helper_valplot <- function(data = NULL, ped0 = NULL, age0to2yr_chart = NULL, x = NULL, y = NULL, overlay_percentile = NULL){
+helper_valplot <- function(data = NULL, ped0 = NULL, age0to2yr_chart = NULL, x = NULL, y = NULL, overlay_percentile = NULL, alpha = 0.4){
   
-  pt_alpha <- 0.4
-  ln_alpha <- 0.8
-  rb_alpha <- 0.4
+  pt_alpha <- alpha
+  rb_alpha <- alpha
+  ln_alpha <- 0.7
   
   pt_color <- "lightblue"
   ln_color <- "purple"

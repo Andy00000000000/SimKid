@@ -7,7 +7,7 @@
 #' @return Nothing if checks are successful, otherwise warnings and/or errors.
 #'
 #' @noRd
-chk_arg_val <- function(age0isbirth = NULL, overlay_percentile = NULL){
+chk_arg_val <- function(age0isbirth = NULL, overlay_percentile = NULL, alpha = NULL){
   
   if((!is.na(overlay_percentile) & inherits(overlay_percentile,"numeric") == FALSE) | length(overlay_percentile) != 1L){
     stop("Error: overlay_percentile must be either NA or a numeric of length one ranging between 0 and 1.")
@@ -18,4 +18,6 @@ chk_arg_val <- function(age0isbirth = NULL, overlay_percentile = NULL){
   }
   
   if(length(age0isbirth) != 1L || !is.logical(age0isbirth) || is.na(age0isbirth)){stop("age0isbirth must be logical of length one (\"TRUE\" or \"FALSE\")")}
+  
+  if(length(alpha) != 1L || inherits(alpha, "numeric") == FALSE || alpha <= 0 || alpha > 1){stop("alpha must be numeric of length one between 0 and 1.")}
 }

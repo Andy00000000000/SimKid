@@ -6,6 +6,7 @@
 #' @param data A data frame created by `sim_kid()`.
 #' @param age0isbirth Logical `TRUE` or `FALSE` matching the `sim_kid()` input option used. Default of `FALSE`.
 #' @param overlay_percentile `NA` (default) for no ribbon overlay of simulated percentiles. Or a numeric greater than `0` and less than `1` specifying the simulated percentile interval to overlay. For example, input of `0.90` would overlay the 5th and 95th percentiles of simulated data.
+#' @param alpha Numeric between `0` and `1` specifying the simulated data transparency in validation plots. Default of `0.4`.
 #'
 #' @return A list of plot objects.
 #' @export
@@ -13,7 +14,7 @@
 #' @examples
 #' demo0 <- sim_kid() # single subject
 #' validation_plots <- validate_kid(data = demo0)
-validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = NA){
+validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = NA, alpha = 0.4){
 
   p1 <- NULL
   p2 <- NULL
@@ -26,7 +27,7 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
   }
   
   chk_out(data, num = nrow(data))
-  chk_arg_val(age0isbirth = age0isbirth, overlay_percentile = overlay_percentile)
+  chk_arg_val(age0isbirth = age0isbirth, overlay_percentile = overlay_percentile, alpha = alpha)
   
   age0to2yr_chart <- data[1,"CHART"]
   
@@ -56,20 +57,20 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
     
     #### weight vs age ####
     
-    p1 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "WTKG", overlay_percentile = overlay_percentile)
+    p1 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "WTKG", overlay_percentile = overlay_percentile, alpha = alpha)
     
     #### height vs age ####
     
-    p2 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "HTCM", overlay_percentile = overlay_percentile)
+    p2 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "HTCM", overlay_percentile = overlay_percentile, alpha = alpha)
     
     #### weight vs height ####
     
-    p3 <- helper_valplot(data = data, ped0 = htwt0 %>% dplyr::mutate(VAR = "WTKG"), age0to2yr_chart = age0to2yr_chart, x = "HTCM", y = "WTKG", overlay_percentile = overlay_percentile)
+    p3 <- helper_valplot(data = data, ped0 = htwt0 %>% dplyr::mutate(VAR = "WTKG"), age0to2yr_chart = age0to2yr_chart, x = "HTCM", y = "WTKG", overlay_percentile = overlay_percentile, alpha = alpha)
     p3 <- suppressMessages(p3 + ggplot2::scale_x_continuous()) # remove default breaks
     
     #### bmi vs age ####
     
-    p4 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "BMI", overlay_percentile = overlay_percentile)
+    p4 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "AGEMO", y = "BMI", overlay_percentile = overlay_percentile, alpha = alpha)
     
     #### end ####
   }else{
@@ -83,7 +84,7 @@ validate_kid <- function(data = NULL, age0isbirth = FALSE, overlay_percentile = 
     
     #### weight vs age ####
     
-    p5 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "GAWK", y = "WTKG", overlay_percentile = overlay_percentile)
+    p5 <- helper_valplot(data = data, ped0 = ped0, age0to2yr_chart = age0to2yr_chart, x = "GAWK", y = "WTKG", overlay_percentile = overlay_percentile, alpha = alpha)
     
     #### end ####
   }
