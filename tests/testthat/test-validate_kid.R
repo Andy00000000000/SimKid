@@ -1,6 +1,6 @@
 data1 <- sim_kid(masterseed = 123)
 p <- validate_kid(data1)
-p_class <- unlist(lapply(seq_len(length(p)), function(i){class(p[[i]])}))
+p_class <- unlist(lapply(seq_along(1:length(p)), function(i){class(p[[i]])}))
 
 data2 <- sim_kid(age0to2yr_growthchart = "FENTON", masterseed = 123)
 

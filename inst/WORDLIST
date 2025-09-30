@@ -1,6 +1,8 @@
+ACoP
 Anthropometric
 BMC
 BMI
+Bilan
 CMD
 CodeFactor
 Codecov
@@ -11,13 +13,16 @@ Fenton
 Gehan
 HTCM
 HTWT
+JH
 LLC
 LMS
+Mager
 Mosteller
 PNA
 Pediatr
 Pharmacodynamics
 PinPoint
+Sauve
 WTKG
 al
 allreplicates
@@ -25,6 +30,7 @@ anthropometric
 cdc
 csv
 doi
+ePD
 et
 fent
 funder
@@ -36,7 +42,11 @@ io
 magrittr
 masterseed
 mhismail
+nd
 nseed
+pharmacokinetic
+pharmacometrics
+rda
 rdocumentation
 reproducibility
 th
