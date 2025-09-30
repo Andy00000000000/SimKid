@@ -39,13 +39,13 @@ library(SimKid)
 demo0 <- sim_kid(num = 100, agedistr = "nperage", masterseed = 123)
 ```
 
-Next, allow those virtual subjects to grow for 6 months with monthly
+Next, allow those virtual subjects to grow for 3 months with monthly
 recording of height and weight. Note, this assumes that each subject
 remains at the same respective percentiles of height- and
 weight-for-age-and-sex as at baseline.
 
 ``` r
-demo <- grow_kid(data = demo0, grow_time = 6, tstep = 1)
+demo <- grow_kid(data = demo0, grow_time = 3, tstep = 1)
 ```
 
 Finally, visually validate that the virtual population is reflective of
@@ -196,57 +196,73 @@ published growth chart data. Use of this R package can help simplify and
 potentially standardize the process of simulating virtual pediatric
 populations.
 
-**References:** 1. National Center for Health Statistics. CDC Growth
-Charts: Weight-for-age for Children Birth to 36 Months.
-<https://www.cdc.gov/growthcharts/data/zscore/wtageinf.csv>. Accessed
-April 11, 2025. 2. National Center for Health Statistics. CDC Growth
-Charts: Length-for-age for Children Birth to 36 Months.
-<https://www.cdc.gov/growthcharts/data/zscore/lenageinf.csv>. Accessed
-April 11, 2025. 3. National Center for Health Statistics. CDC Growth
-Charts: Weight-for-stature for Children Birth to 36 Months.
-<https://www.cdc.gov/growthcharts/data/zscore/wtstat.csv>. Accessed
-April 11, 2025. 4. National Center for Health Statistics. CDC Growth
-Charts: Weight-for-age for Children 2 to 20 Years.
-<https://www.cdc.gov/growthcharts/data/zscore/wtage.csv>. Accessed April
-11, 2025. 5. National Center for Health Statistics. CDC Growth Charts:
-Stature-for-age for Children 2 to 20 Years.
-<https://www.cdc.gov/growthcharts/data/zscore/statage.csv>. Accessed
-April 11, 2025. 6. National Center for Health Statistics. CDC Growth
-Charts: BMI-for-age for Children 2 to 20 Years.
-<https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv>. Accessed
-April 11, 2025. 7. National Center for Health Statistics. WHO Growth
-Charts: Weight-for-age for Birth to 24 Months for Boys.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Weight-for-age-Percentiles.csv>.
-Accessed April 11, 2025. 8. National Center for Health Statistics. WHO
-Growth Charts: Weight-for-age for Birth to 24 Months for Girls.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Weight-for-age%20Percentiles.csv>.
-Accessed April 11, 2025. 9. National Center for Health Statistics. WHO
-Growth Charts: Length-for-age for Birth to 24 Months for Boys.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Length-for-age-Percentiles.csv>.
-Accessed April 11, 2025. 10. National Center for Health Statistics. WHO
-Growth Charts: Length-for-age for Birth to 24 Months for Girls.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Length-for-age-Percentiles.csv>.
-Accessed April 11, 2025. 11. National Center for Health Statistics. WHO
-Growth Charts: Weight-for-length for Birth to 24 Months for Boys.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Weight-for-length-Percentiles.csv>.
-Accessed April 11, 2025. 12. National Center for Health Statistics. WHO
-Growth Charts: Weight-for-length for Birth to 24 Months for Girls.
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Weight-for-length-Percentiles.csv>.
-Accessed April 11, 2025. 13. Fenton 2013 2nd generation Preterm Growth
-Charts for Boys.
-<https://ucalgary.ca/live-uc-ucalgary-site/sites/default/files/teams/418/fenton2013growthchartcolor-boys.pdf>.
-Accessed April 11, 2025. 14. Fenton 2013 2nd generation Preterm Growth
-Charts for Girls.
-<https://ucalgary.ca/live-uc-ucalgary-site/sites/default/files/teams/418/fenton2013growthchartcolor-girls.pdf>.
-Accessed April 11, 2025. 15. Fenton TR & Kim JH. A systematic review and
-meta-analysis to revise the Fenton growth chart for preterm infants. BMC
-Pediatr. 2013;13:59. 16. Fenton TR, Nasser R, Eliasziw M, Kim JH, Bilan
-D, Sauve R. Validating the weight gain of preterm infants between the
-reference growth curve of the fetus and the term infant. BMC Pediatr.
-2013;13(1):92. 17. National Center for Health Statistics. CDC Growth
-Charts: Definition of LMS parameters.
-<https://www.cdc.gov/growthcharts/cdc-data-files.htm>. Accessed April
-23, 2025.
+**References:**
+
+1.  National Center for Health Statistics. CDC Growth Charts:
+    Weight-for-age for Children Birth to 36 Months.
+    <https://www.cdc.gov/growthcharts/data/zscore/wtageinf.csv>.
+    Accessed April 11, 2025.
+2.  National Center for Health Statistics. CDC Growth Charts:
+    Length-for-age for Children Birth to 36 Months.
+    <https://www.cdc.gov/growthcharts/data/zscore/lenageinf.csv>.
+    Accessed April 11, 2025.
+3.  National Center for Health Statistics. CDC Growth Charts:
+    Weight-for-stature for Children Birth to 36 Months.
+    <https://www.cdc.gov/growthcharts/data/zscore/wtstat.csv>. Accessed
+    April 11, 2025.
+4.  National Center for Health Statistics. CDC Growth Charts:
+    Weight-for-age for Children 2 to 20 Years.
+    <https://www.cdc.gov/growthcharts/data/zscore/wtage.csv>. Accessed
+    April 11, 2025.
+5.  National Center for Health Statistics. CDC Growth Charts:
+    Stature-for-age for Children 2 to 20 Years.
+    <https://www.cdc.gov/growthcharts/data/zscore/statage.csv>. Accessed
+    April 11, 2025.
+6.  National Center for Health Statistics. CDC Growth Charts:
+    BMI-for-age for Children 2 to 20 Years.
+    <https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv>.
+    Accessed April 11, 2025.
+7.  National Center for Health Statistics. WHO Growth Charts:
+    Weight-for-age for Birth to 24 Months for Boys.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Weight-for-age-Percentiles.csv>.
+    Accessed April 11, 2025.
+8.  National Center for Health Statistics. WHO Growth Charts:
+    Weight-for-age for Birth to 24 Months for Girls.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Weight-for-age%20Percentiles.csv>.
+    Accessed April 11, 2025.
+9.  National Center for Health Statistics. WHO Growth Charts:
+    Length-for-age for Birth to 24 Months for Boys.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Length-for-age-Percentiles.csv>.
+    Accessed April 11, 2025.
+10. National Center for Health Statistics. WHO Growth Charts:
+    Length-for-age for Birth to 24 Months for Girls.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Length-for-age-Percentiles.csv>.
+    Accessed April 11, 2025.
+11. National Center for Health Statistics. WHO Growth Charts:
+    Weight-for-length for Birth to 24 Months for Boys.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Boys-Weight-for-length-Percentiles.csv>.
+    Accessed April 11, 2025.
+12. National Center for Health Statistics. WHO Growth Charts:
+    Weight-for-length for Birth to 24 Months for Girls.
+    <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/growthcharts/WHO-Girls-Weight-for-length-Percentiles.csv>.
+    Accessed April 11, 2025.
+13. Fenton 2013 2nd generation Preterm Growth Charts for Boys.
+    <https://ucalgary.ca/live-uc-ucalgary-site/sites/default/files/teams/418/fenton2013growthchartcolor-boys.pdf>.
+    Accessed April 11, 2025.
+14. Fenton 2013 2nd generation Preterm Growth Charts for Girls.
+    <https://ucalgary.ca/live-uc-ucalgary-site/sites/default/files/teams/418/fenton2013growthchartcolor-girls.pdf>.
+    Accessed April 11, 2025.
+15. Fenton TR & Kim JH. A systematic review and meta-analysis to revise
+    the Fenton growth chart for preterm infants. BMC Pediatr.
+    2013;13:59.
+16. Fenton TR, Nasser R, Eliasziw M, Kim JH, Bilan D, Sauve R.
+    Validating the weight gain of preterm infants between the reference
+    growth curve of the fetus and the term infant. BMC Pediatr.
+    2013;13(1):92.
+17. National Center for Health Statistics. CDC Growth Charts: Definition
+    of LMS parameters.
+    <https://www.cdc.gov/growthcharts/cdc-data-files.htm>. Accessed
+    April 23, 2025.
 
 ## Supplementary Methods
 
@@ -278,15 +294,6 @@ in the data-raw folder.
 The 10x replicate correlations (black) and averaged correlations (red)
 are shown below:
 
-    #> 
-    #> Attaching package: 'dplyr'
-    #> The following objects are masked from 'package:stats':
-    #> 
-    #>     filter, lag
-    #> The following objects are masked from 'package:base':
-    #> 
-    #>     intersect, setdiff, setequal, union
-
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 The average correlations, by default, are used when simulating virtual
@@ -300,7 +307,11 @@ to be utilized.
 The below simulations demonstrate the impact of including versus
 excluding the height and weight correlations. Note the discrepancy in
 simulated versus reported BMI percentiles for ages \>2 years when
-simulating without height and weight correlations.
+simulating without height and weight correlations. Without the height
+and weight correlations, there is a discontinuity at 24 months when the
+simulation methodology changes away from using CDC weight-for-stature
+charts and the lower ribbon of the simulated data extends to the 10th
+reported percentile rather than the 25th.
 
 ``` r
 demo_cor <-   sim_kid(num = 100, agedistr = "nperage", masterseed = 123, age2to20yr_correlate_htwt = TRUE)
