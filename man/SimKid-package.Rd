@@ -11,6 +11,7 @@ Simulate a virtual population of subjects that has demographic distributions (he
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/Andy00000000000/SimKid}
   \item Report bugs at \url{https://github.com/Andy00000000000/SimKid/issues}
 }
 

@@ -9,25 +9,37 @@ grow_kid(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
 \arguments{
 \item{data}{A data frame created by \code{sim_kid()}.}
 
-\item{grow_time}{A non-negative numeric specifying the duration of time in months the virtual subjects are allowed to grow for. Will be rounded to the nearest month.}
+\item{grow_time}{A non-negative numeric specifying the duration of time in
+months the virtual subjects are allowed to grow for. Will be rounded to the
+nearest month.}
 
-\item{tstep}{A positive numeric specifying the time step for growth in months. Default of \code{1}. Will be rounded to the nearest month.}
+\item{tstep}{A positive numeric specifying the time step for growth in
+months. Default of \code{1}. Will be rounded to the nearest month.}
 
-\item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input option used. Default of \code{FALSE}.}
+\item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input
+option used. Default of \code{FALSE}.}
 }
 \value{
-A data frame with columns matching those of \code{data} and the number of rows equal to \code{nrow(data)*(1+grow_time/tstep)-nsubtract}. Where \code{nsubtract} is the number of records with age greater than 240 months.
+A data frame with columns matching those of \code{data} and the number of
+rows equal to \code{nrow(data)*(1+grow_time/tstep)-nsubtract}. Where \code{nsubtract}
+is the number of records with age greater than 240 months.
 }
 \description{
-Following creation of a virtual population using \code{sim_kid()}, each virtual subject grows from their baseline age.
-It is assumed that each virtual subject remains at the same respective percentiles of height- and weight-for-age-and-sex as they were at baseline.
-For example, if \code{sim_kid()} created a male 2 year old at the 25th percentile of height and the 30th percentile of weight,
-then if allowed to grow to 3 years old, this subject would be at the 25th percentile of height and 30th percentile of weight
+Following creation of a virtual population using \code{sim_kid()}, each virtual
+subject grows from their baseline age. It is assumed that each virtual
+subject remains at the same respective percentiles of height- and
+weight-for-age-and-sex as they were at baseline.For example, if \code{sim_kid()}
+created a male 2 year old at the 25th percentile of height and the 30th
+percentile of weight, then if allowed to grow to 3 years old, this subject
+would be at the 25th percentile of height and 30th percentile of weight
 for 3 year old males according to the given anthropometric growth chart.
-Note that this function will not work for virtual preterm newborns created using the Fenton growth chart data.
-Note that this function will not allow virtual subjects ages 0 to 2 yr to grow past 2 years.
+Note that this function will not work for virtual preterm newborns created
+using the Fenton growth chart data.
+Note that this function will not allow virtual subjects ages 0 to 2 yr to
+grow past 2 years.
 }
 \examples{
+# growth for 1 year at monthly time step
 demo0 <- sim_kid()
-demo <- grow_kid(data = demo0, grow_time = 12) # growth for 1 year at monthly time step
+demo <- grow_kid(data = demo0, grow_time = 12)
 }

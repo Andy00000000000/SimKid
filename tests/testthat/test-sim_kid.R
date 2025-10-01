@@ -45,7 +45,11 @@ test_that("nrows correct for given num", {
 test_that("column names correct for output", {
   expect_equal(
     colnames(sim_kid()),
-    c("ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM","BMI","BSA1","BSA2","BSA3","ZWTKG","ZHTCM","PWTKG","PHTCM","CHART")
+    c(
+      "ID","SEXF","AGEMO","AGE","GAWK","WTKG","HTCM",
+      "BMI","BSA1","BSA2","BSA3",
+      "ZWTKG","ZHTCM","PWTKG","PHTCM","CHART"
+    )
   )
 })
 
@@ -73,13 +77,17 @@ test_that("No NA for WTKG output", {
 test_that("spot check simulation output", {
   
   kid0 <- internal_kid0 %>%
-    dplyr::filter(.data$CHART == "CDC", .data$VAR == "WTKG", .data$SEXF == 0, .data$AGEGRP == "[216,217)")
+    dplyr::filter(
+      .data$CHART == "CDC", .data$VAR == "WTKG", 
+      .data$SEXF == 0, .data$AGEGRP == "[216,217)"
+    )
   
   expected <- kid0$P50
   
   actual <- sim_kid(
     num = 1, agedistr = "norm", agemean = 216, agesd = 0, prob_female = 0, 
-    age2to20yr_correlate_htwt = FALSE, htwt_percentile_min = 0.500, htwt_percentile_max = 0.500
+    age2to20yr_correlate_htwt = FALSE, 
+    htwt_percentile_min = 0.500, htwt_percentile_max = 0.500
   )$WTKG
   
   expect_equal(

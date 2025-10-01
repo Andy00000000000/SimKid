@@ -14,17 +14,24 @@ validate_kid(
 \arguments{
 \item{data}{A data frame created by \code{sim_kid()}.}
 
-\item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input option used. Default of \code{FALSE}.}
+\item{age0isbirth}{Logical \code{TRUE} or \code{FALSE} matching the \code{sim_kid()} input
+option used. Default of \code{FALSE}.}
 
-\item{overlay_percentile}{\code{NA} (default) for no ribbon overlay of simulated percentiles. Or a numeric greater than \code{0} and less than \code{1} specifying the simulated percentile interval to overlay. For example, input of \code{0.90} would overlay the 5th and 95th percentiles of simulated data.}
+\item{overlay_percentile}{\code{NA} (default) for no ribbon overlay of simulated
+percentiles. Or a numeric greater than \code{0} and less than \code{1} specifying the
+simulated percentile interval to overlay. For example, input of \code{0.90} would
+overlay the 5th and 95th percentiles of simulated data.}
 
-\item{alpha}{Numeric between \code{0} and \code{1} specifying the simulated data transparency in validation plots. Default of \code{0.4}.}
+\item{alpha}{Numeric between \code{0} and \code{1} specifying the simulated data
+transparency in validation plots. Default of \code{0.4}.}
 }
 \value{
 A list of plot objects.
 }
 \description{
-Following creation of a virtual population using \code{sim_kid()}, overlay scatter plots are used to validate that the virtual population is reflective of the respective anthropometric growth chart data.
+Following creation of a virtual population using \code{sim_kid()}, overlay
+scatter plots are used to validate that the virtual population is reflective
+of the respective anthropometric growth chart data.
 }
 \examples{
 demo0 <- sim_kid() # single subject

@@ -41,7 +41,10 @@ test_that("no masterseed has different results", {
 })
 
 test_that("masterseed has same results", {
-  expect_equal(all(get_seeds(masterseed = 513) == get_seeds(masterseed = 513)), TRUE)
+  expect_equal(
+    all(get_seeds(masterseed = 513) == get_seeds(masterseed = 513)), 
+    TRUE
+  )
 })
 
 ## END ####

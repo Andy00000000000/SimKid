@@ -10,16 +10,22 @@ calc_bmi_bsa(data = NULL)
 \item{data}{A data frame with columns of \code{HTCM} and \code{WTKG}.}
 }
 \value{
-A data frame with columns of \code{BMI}, \code{BSA1}, \code{BSA2}, and \code{BSA3} added to \code{data}:
+A data frame with columns of \code{BMI}, \code{BSA1}, \code{BSA2}, and \code{BSA3} added
+to \code{data}:
 \itemize{
-\item \code{BMI}: Body mass index in kilograms per meter squared, rounded to 1 decimal place.
-\item \code{BSA1}: Body surface area in meters squared, rounded to 2 decimal places; calculated using the Mosteller equation.
-\item \code{BSA2}: Body surface area in meters squared, rounded to 2 decimal places; calculated using the Gehan and George equation.
-\item \code{BSA3}: Body surface area in meters squared, rounded to 2 decimal places; calculated using the DuBois equation.
+\item \code{BMI}: Body mass index in kilograms per meter squared, rounded to 1
+decimal place.
+\item \code{BSA1}: Body surface area in meters squared, rounded to 2 decimal
+places; calculated using the Mosteller equation.
+\item \code{BSA2}: Body surface area in meters squared, rounded to 2 decimal
+places; calculated using the Gehan and George equation.
+\item \code{BSA3}: Body surface area in meters squared, rounded to 2 decimal
+places; calculated using the DuBois equation.
 }
 }
 \description{
-BMI and BSA are calculated for a data frame that minimally has columns of HTCM and WTKG. Output columns match the definitions given by \code{sim_kid()}.
+BMI and BSA are calculated for a data frame that minimally has columns of
+HTCM and WTKG. Output columns match the definitions given by \code{sim_kid()}.
 }
 \examples{
 demo0 <- sim_kid()

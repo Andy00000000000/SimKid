@@ -12,7 +12,9 @@ test_that("correct usage 1", {
 })
 
 test_that("correct usage 2", {
-  expect_no_error(validate_kid(data1, age0isbirth = TRUE, overlay_percentile = 0.90))
+  expect_no_error(
+    validate_kid(data1, age0isbirth = TRUE, overlay_percentile = 0.90)
+  )
 })
 
 test_that("correct usage 3", {

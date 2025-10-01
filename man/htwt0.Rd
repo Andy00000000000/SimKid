@@ -3,19 +3,23 @@
 \docType{data}
 \name{htwt0}
 \alias{htwt0}
-\title{U.S. Centers for Disease Control and Prevention (CDC) and World Health Organization (WHO) Growth Charts of Weight for Height}
+\title{U.S. Centers for Disease Control and Prevention (CDC) and World Health
+Organization (WHO) Growth Charts of Weight for Height}
 \format{
 \subsection{\code{htwt0}}{
 
 A data frame with 474 rows and 16 columns:
 \describe{
 \item{CHART}{Growth chart label}
-\item{VAR}{Demographic variable (HTWT denotes weight (kg) calculated using height (cm))}
+\item{VAR}{Demographic variable (HTWT denotes weight (kg) calculated using
+height (cm))}
 \item{SEXF}{Female sex indicator (0 is male; 1 is female)}
 \item{HTCMGRP}{Height group}
-\item{L}{Power in the Box-Cox transformation (calculation of weight using height)}
+\item{L}{Power in the Box-Cox transformation (calculation of weight using
+height)}
 \item{M}{Median (calculation of weight using height)}
-\item{S}{Generalized coefficient of variation (calculation of weight using height)}
+\item{S}{Generalized coefficient of variation (calculation of weight using
+height)}
 \item{P3}{3rd percentile of weight}
 \item{P5}{5th percentile of weight}
 \item{P10}{10th percentile of weight}
@@ -29,7 +33,8 @@ A data frame with 474 rows and 16 columns:
 }
 }
 \source{
-\url{https://www.cdc.gov/growthcharts/cdc-data-files.htm} and \url{https://www.cdc.gov/growthcharts/who-data-files.htm}
+\url{https://www.cdc.gov/growthcharts/cdc-data-files.htm} and
+\url{https://www.cdc.gov/growthcharts/who-data-files.htm}
 }
 \usage{
 htwt0

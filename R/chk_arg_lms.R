@@ -41,11 +41,23 @@ chk_arg_lms <- function(z = NA, l = NA, m = NA, s = NA){
     stop("Error: s cannot contain NA.")
   }
   
-  if(length(l) != length(m) || length(l) != length(s) || length(m) != length(s)){
+  if(
+    length(l) != length(m) || 
+    length(l) != length(s) || 
+    length(m) != length(s)
+  ){
     stop("Error: l, m, and s must all be the same length.")
   }
   
-  if((length(l) > 1 | length(z) > 1) & (length(z) != length(l) & length(z) != 1 & length(l) != 1)){
-    stop("Error: If l, m, and s are vectors of length > 1, then z must either be the same length as l, m, and s or length 1. If z is a vector of length > 1, then l, m, and s must eithe be the same length as z or length 1.")
+  if(
+    (length(l) > 1 | length(z) > 1) &
+    (length(z) != length(l) & length(z) != 1 & length(l) != 1)
+  ){
+    stop(paste0(
+      "Error: If l, m, and s are vectors of length > 1, ",
+      "then z must either be the same length as l, m, and s or length 1. ",
+      "If z is a vector of length > 1, ",
+      "then l, m, and s must eithe be the same length as z or length 1."
+    ))
   }
 }

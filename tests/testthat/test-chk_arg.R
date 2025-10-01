@@ -41,7 +41,9 @@ test_that("age0to2yr_growthchart = Fenton correct", {
 })
 
 test_that("agemean equal to agemin and agemax", {
-  expect_no_error(chk_arg(agedistr = "norm", agemean = 48, agesd = 0, agemin = 48, agemax = 48))
+  expect_no_error(chk_arg(
+    agedistr = "norm", agemean = 48, agesd = 0, agemin = 48, agemax = 48
+  ))
 })
 
 test_that("prob_female = 0", {
@@ -258,15 +260,21 @@ test_that("agemean = 240", {
 })
 
 test_that("agemean < 22 when age0to2yr_growthchart = FENTON", {
-  expect_error(chk_arg(agedistr = "norm", agemean = 21, agesd = 1, age0to2yr_growthchart = "FENTON"))
+  expect_error(chk_arg(
+    agedistr = "norm", agemean = 21, agesd = 1, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 test_that("agemean > 41 when age0to2yr_growthchart = FENTON", {
-  expect_error(chk_arg(agedistr = "norm", agemean = 42, agesd = 1, age0to2yr_growthchart = "FENTON"))
+  expect_error(chk_arg(
+    agedistr = "norm", agemean = 42, agesd = 1, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 test_that("agemean = 41 when age0to2yr_growthchart = FENTON", {
-  expect_error(chk_arg(agedistr = "norm", agemean = 41, agesd = 1, age0to2yr_growthchart = "FENTON"))
+  expect_error(chk_arg(
+    agedistr = "norm", agemean = 41, agesd = 1, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 ## age0to2yr_growthchart ####
@@ -350,7 +358,9 @@ test_that("age2to20yr_correlate_htwt not logical", {
 })
 
 test_that("age2to20yr_correlate_htwt when age0to2yr_growthchart = FENTON", {
-  expect_warning(chk_arg(age2to20yr_correlate_htwt = FALSE, age0to2yr_growthchart = "FENTON"))
+  expect_warning(chk_arg(
+    age2to20yr_correlate_htwt = FALSE, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 ## htwt_percentile_min ####
@@ -376,7 +386,9 @@ test_that("htwt_percentile_min < min allowed", {
 })
 
 test_that("htwt_percentile_min < min suggested for Fenton", {
-  expect_warning(chk_arg(htwt_percentile_min = 0.009, age0to2yr_growthchart = "FENTON"))
+  expect_warning(chk_arg(
+    htwt_percentile_min = 0.009, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 ## htwt_percentile_max ####
@@ -401,24 +413,35 @@ test_that("htwt_percentile_max > max allowed", {
   expect_error(chk_arg(htwt_percentile_max = 0.9991))
 })
 
-test_that("htwt_percentile_max = htwt_percentile_min when age2to20yr_correlate_htwt is TRUE", {
-  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, age2to20yr_correlate_htwt = TRUE))
+test_that("htwt_pmax = htwt_pmin when age2to20yr_correlate_htwt is TRUE", {
+  expect_error(chk_arg(
+    htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, 
+    age2to20yr_correlate_htwt = TRUE
+  ))
 })
 
-test_that("htwt_percentile_max = htwt_percentile_min when age2to20yr_correlate_htwt is FALSE", {
-  expect_no_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, age2to20yr_correlate_htwt = FALSE))
+test_that("htwt_pmax = htwt_pmin when age2to20yr_correlate_htwt is FALSE", {
+  expect_no_error(chk_arg(
+    htwt_percentile_min = 0.6, htwt_percentile_max = 0.6, 
+    age2to20yr_correlate_htwt = FALSE
+  ))
 })
 
 test_that("htwt_percentile_max < htwt_percentile_min", {
   expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.5))
 })
 
-test_that("htwt_percentile_max < htwt_percentile_min when age2to20yr_correlate_htwt is FALSE", {
-  expect_error(chk_arg(htwt_percentile_min = 0.6, htwt_percentile_max = 0.5, age2to20yr_correlate_htwt = FALSE))
+test_that("htwt_pmax < htwt_pmin when age2to20yr_correlate_htwt is FALSE", {
+  expect_error(chk_arg(
+    htwt_percentile_min = 0.6, htwt_percentile_max = 0.5, 
+    age2to20yr_correlate_htwt = FALSE
+  ))
 })
 
 test_that("htwt_percentile_max > max suggested for Fenton", {
-  expect_warning(chk_arg(htwt_percentile_max = 0.991, age0to2yr_growthchart = "FENTON"))
+  expect_warning(chk_arg(
+    htwt_percentile_max = 0.991, age0to2yr_growthchart = "FENTON"
+  ))
 })
 
 ## masterseed ####

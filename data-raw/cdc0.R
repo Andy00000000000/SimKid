@@ -7,25 +7,40 @@
 ### 2 to 20 Years ####
 
 if (!file.exists("data-raw/bmiagerev.csv")) {
-  download.file("https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv", "data-raw/bmiagerev.csv")
+  download.file(
+    "https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv", 
+    "data-raw/bmiagerev.csv"
+  )
 }
 
 if (!file.exists("data-raw/statage.csv")) {
-  download.file("https://www.cdc.gov/growthcharts/data/zscore/statage.csv", "data-raw/statage.csv")
+  download.file(
+    "https://www.cdc.gov/growthcharts/data/zscore/statage.csv", 
+    "data-raw/statage.csv"
+  )
 }
 
 if (!file.exists("data-raw/wtage.csv")) {
-  download.file("https://www.cdc.gov/growthcharts/data/zscore/wtage.csv", "data-raw/wtage.csv")
+  download.file(
+    "https://www.cdc.gov/growthcharts/data/zscore/wtage.csv", 
+    "data-raw/wtage.csv"
+  )
 }
 
 ### Birth to 36 Months ####
 
 if (!file.exists("data-raw/wtageinf.csv")) {
-  download.file("https://www.cdc.gov/growthcharts/data/zscore/wtageinf.csv", "data-raw/wtageinf.csv")
+  download.file(
+    "https://www.cdc.gov/growthcharts/data/zscore/wtageinf.csv", 
+    "data-raw/wtageinf.csv"
+  )
 }
 
 if (!file.exists("data-raw/lenageinf.csv")) {
-  download.file("https://www.cdc.gov/growthcharts/data/zscore/lenageinf.csv", "data-raw/lenageinf.csv")
+  download.file(
+    "https://www.cdc.gov/growthcharts/data/zscore/lenageinf.csv", 
+    "data-raw/lenageinf.csv"
+  )
 }
 
 ## CREATE CDC0 (MANIPULATED DATASET) FROM ORIGINAL RAW CDC GROWTH CHARTS ####
@@ -81,12 +96,28 @@ load_cdc <- function(dir = "data-raw"){
     dplyr::mutate(NXAGEMO = dplyr::lead(AGEMO))%>%
     dplyr::ungroup()%>%
     as.data.frame()%>%
-    dplyr::mutate(LOAGEMO = ifelse(is.na(NXAGEMO), AGEMO-(AGEMO-LSAGEMO)/2, AGEMO - (NXAGEMO-AGEMO)/2))%>%
-    dplyr::mutate(UPAGEMO = ifelse(is.na(NXAGEMO), AGEMO+(AGEMO-LOAGEMO), NXAGEMO - (NXAGEMO-AGEMO)/2))%>%
+    dplyr::mutate(
+      LOAGEMO = ifelse(
+        is.na(NXAGEMO), 
+        AGEMO-(AGEMO-LSAGEMO)/2, 
+        AGEMO - (NXAGEMO-AGEMO)/2
+      )
+    )%>%
+    dplyr::mutate(
+      UPAGEMO = ifelse(
+        is.na(NXAGEMO), 
+        AGEMO+(AGEMO-LOAGEMO), 
+        NXAGEMO - (NXAGEMO-AGEMO)/2
+      )
+    )%>%
     dplyr::mutate(LOAGEMO = ifelse(AGEMO == 0, AGEMO, LOAGEMO))%>%
     dplyr::mutate(UPAGEMO = ifelse(AGEMO == 0, AGEMO, UPAGEMO))%>%
     # dplyr::mutate(UPAGEMO = ifelse(UPAGEMO == 241, 240, UPAGEMO))%>%
-    dplyr::mutate(AGEGRP = paste0("[",LOAGEMO,",",UPAGEMO,ifelse(LOAGEMO!=UPAGEMO, ")", "]")))%>%
+    dplyr::mutate(
+      AGEGRP = paste0(
+        "[", LOAGEMO, ",", UPAGEMO, ifelse(LOAGEMO!=UPAGEMO, ")", "]")
+      )
+    )%>%
     dplyr::mutate(AGEGRP = ifelse(AGEGRP == "[0,1)", "(0,1)", AGEGRP))%>%
     dplyr::distinct(VAR,AGEMO,SEXF,.keep_all = T)%>%
     dplyr::select(-LSAGEMO,-NXAGEMO)%>%

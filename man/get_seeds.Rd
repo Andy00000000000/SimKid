@@ -7,15 +7,19 @@
 get_seeds(masterseed = NULL, nseed = 1000)
 }
 \arguments{
-\item{masterseed}{An integer ranging from \code{1} to \code{.Machine$integer.max} that sets an overall seed for the simulation to ensure reproducibility of the results. Defaults to no seed.}
+\item{masterseed}{An integer ranging from \code{1} to \code{.Machine$integer.max} that
+sets an overall seed for the simulation to ensure reproducibility of the
+results. Defaults to no seed.}
 
-\item{nseed}{A positive integer that specifies the number of subjects to simulate. Defaults to 1000.}
+\item{nseed}{A positive integer that specifies the number of subjects to
+simulate. Defaults to 1000.}
 }
 \value{
 A vector of numeric integers of length nseed
 }
 \description{
-Use the user-specified masterseed to generate a vector of randomly sampled seeds that is reproducible by calling the same masterseed at a future time.
+Use the user-specified masterseed to generate a vector of randomly sampled
+seeds that is reproducible by calling the same masterseed at a future time.
 }
 \examples{
 get_seeds(masterseed = 513, nseed = 10)
