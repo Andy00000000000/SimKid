@@ -41,5 +41,5 @@
 #'   \item{P95}{95th percentile of the given VAR}
 #'   \item{P97}{97th percentile of the given VAR}
 #' }
-#' @source <https://ucalgary.ca/resource/preterm-growth-chart>
+#' @source <https://ucalgary.ca/resource/preterm-growth-chart/preterm-growth-chart>
 "fent0"

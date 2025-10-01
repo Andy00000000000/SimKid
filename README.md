@@ -17,6 +17,13 @@ version](http://www.r-pkg.org/badges/version/SimKid)](https://cran.r-project.org
 
 ## Installation
 
+You can install the stable version of SimKid from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("SimKid")
+```
+
 You can install the development version of SimKid from
 [GitHub](https://github.com/) with:
 
@@ -117,12 +124,9 @@ citation("SimKid")
 contract research organization that assists clients with the design and
 implementation of model-informed drug development strategies in a broad
 range of therapeutic areas. The executive management team is led by
-[Dr. Donald E. Mager](https://www.linkedin.com/in/don-mager-2652615/)
-and [Dr. Scott A. Van
-Wart](https://www.linkedin.com/in/scott-van-wart-2b6002a/).
+Dr. Donald E. Mager and Dr. Scott A. Van Wart.
 
-SimKid was developed at ePD by [Andrew
-Santulli](https://www.linkedin.com/in/andrew-santulli-219034156/).
+SimKid was developed at ePD by Andrew Santulli.
 
 ## Abstract Presented at ACoP 2025
 

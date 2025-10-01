@@ -32,7 +32,7 @@ age)}
 }
 }
 \source{
-\url{https://ucalgary.ca/resource/preterm-growth-chart}
+\url{https://ucalgary.ca/resource/preterm-growth-chart/preterm-growth-chart}
 }
 \usage{
 fent0
