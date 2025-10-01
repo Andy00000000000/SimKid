@@ -7,6 +7,7 @@
 #' then if allowed to grow to 3 years old, this subject would be at the 25th percentile of height and 30th percentile of weight 
 #' for 3 year old males according to the given anthropometric growth chart.
 #' Note that this function will not work for virtual preterm newborns created using the Fenton growth chart data.
+#' Note that this function will not allow virtual subjects ages 0 to 2 yr to grow past 2 years.
 #'
 #' @param data A data frame created by `sim_kid()`.
 #' @param grow_time A non-negative numeric specifying the duration of time in months the virtual subjects are allowed to grow for. Will be rounded to the nearest month.
@@ -45,14 +46,21 @@ grow_kid <- function(data = NULL, grow_time = 0, tstep = 1, age0isbirth = FALSE)
   
   data1 <- data1[,c(columns,"MONTH")]
   
-  data1 <- data1 %>%
+  data1 <- suppressWarnings(data1 %>%
+    dplyr::mutate(AGEMO0 = .data$AGEMO)%>%
     dplyr::mutate(AGEMO = .data$AGEMO + .data$MONTH)%>%
     dplyr::mutate(AGE = round(.data$AGEMO/12,3))
+  )
   
   nsubtract <- nrow(data1[which(data1$AGEMO > 239),])
+  nsubtract <- nsubtract + nrow(data1[which(data1$AGEMO > 24 & data1$AGEMO0 <= 24),])
   
-  data1 <- data1 %>%
-    dplyr::filter(.data$AGEMO <= 239)
+  data1 <- suppressWarnings(data1 %>%
+    dplyr::filter(.data$AGEMO <= 239)%>%
+    dplyr::mutate(RMFLG = ifelse(.data$AGEMO0 <= 24 & .data$AGEMO > 24, 1, 0))%>% # don't allow crossover between sim methods when growing
+    dplyr::filter(.data$RMFLG == 0)%>%
+    dplyr::select(-.data$RMFLG, -.data$AGEMO0)
+  )
   
   if(nrow(data1[which(data1$AGEMO <= 24),]) > 0){
     data1 <- helper_kid_0to2yr(

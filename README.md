@@ -58,36 +58,31 @@ plots <- validate_kid(data = demo, overlay_percentile = 0.50, alpha = 0.2)
 
 theme_readme <- theme(
   axis.text.x = element_text(size = 6, angle = -60, hjust = -0.1),
-  plot.caption = element_text(size = 8)
+  plot.caption = element_text(size = 6)
 )
 
 print(plots[[1]]+theme_readme) # height for age by sex
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-ex3-1.png" width="100%" />
 
 ``` r
-print(plots[[2]]+theme_readme) # weight for age by sex
+print(plots[[2]]+theme_readme+coord_cartesian(ylim = c(NA, 125))) # weight for age by sex
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />
+<img src="man/figures/README-ex3-2.png" width="100%" />
 
 ``` r
-print(plots[[3]]+theme_readme+ggplot2::coord_cartesian(xlim = c(NA, 125), ylim = c(NA, 50))) # weight for height by sex
+print(plots[[3]]+theme_readme+coord_cartesian(xlim = c(NA, 125), ylim = c(NA, 45))) # weight for height by sex
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-3.png" width="100%" />
+<img src="man/figures/README-ex3-3.png" width="100%" />
 
 ``` r
-print(plots[[4]]+theme_readme) # BMI for age by sex
+print(plots[[4]]+theme_readme+coord_cartesian(ylim = c(NA, 40))) # BMI for age by sex
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-4.png" width="100%" />
-
-``` r
-
-# print(plots[[5]]) # weight for age by sex for preterm newborns using Fenton growth charts
-```
+<img src="man/figures/README-ex3-4.png" width="100%" />
 
 ## Getting Help
 
@@ -294,7 +289,7 @@ in the data-raw folder.
 The 10x replicate correlations (black) and averaged correlations (red)
 are shown below:
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-sup1-1.png" width="100%" />
 
 The average correlations, by default, are used when simulating virtual
 subjects for ages 25 to 239 months. The user can specify
@@ -320,13 +315,13 @@ demo_nocor <- sim_kid(num = 100, agedistr = "nperage", masterseed = 123, age2to2
 val_cor <-   validate_kid(demo_cor,   overlay_percentile = 0.50)
 val_nocor <- validate_kid(demo_nocor, overlay_percentile = 0.50)
 
-print(val_cor[[4]] + labs(title = "Correlated Height and Weight") + theme_readme)
+print(val_cor[[4]] + labs(title = "Correlated Height and Weight") + theme_readme + coord_cartesian(ylim = c(NA, 45)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-sup2-1.png" width="100%" />
 
 ``` r
-print(val_nocor[[4]]+labs(title = "Uncorrelated Height and Weight")+theme_readme)
+print(val_nocor[[4]]+labs(title = "Uncorrelated Height and Weight")+theme_readme + coord_cartesian(ylim = c(NA, 45)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" />
+<img src="man/figures/README-sup2-2.png" width="100%" />

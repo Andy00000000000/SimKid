@@ -10,10 +10,12 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
-  dpi = 300,
+  dpi = 192,
   warning=FALSE, 
   message=FALSE
 )
+
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
 ```
 
 # SimKid
@@ -43,34 +45,32 @@ devtools::install_github("Andy00000000000/SimKid")
 There are many input options not used in this example. Please refer to the documentation (``` r ?SimKid::sim_kid()```) for descriptions of all available options.
 
 Simulate 100 virtual subjects per age bin and per sex using CDC growth charts.
-```{r}
+```{r ex1}
 library(SimKid)
 demo0 <- sim_kid(num = 100, agedistr = "nperage", masterseed = 123)
 ```
 
 Next, allow those virtual subjects to grow for 3 months with monthly recording of height and weight. Note, this assumes that each subject remains at the same respective percentiles of height- and weight-for-age-and-sex as at baseline.
 
-```{r}
+```{r ex2}
 demo <- grow_kid(data = demo0, grow_time = 3, tstep = 1)
 ```
 
 Finally, visually validate that the virtual population is reflective of the CDC growth chart data.
-```{r}
+```{r ex3, optipng = ''}
 library(ggplot2)
 
 plots <- validate_kid(data = demo, overlay_percentile = 0.50, alpha = 0.2)
 
 theme_readme <- theme(
   axis.text.x = element_text(size = 6, angle = -60, hjust = -0.1),
-  plot.caption = element_text(size = 8)
+  plot.caption = element_text(size = 6)
 )
 
 print(plots[[1]]+theme_readme) # height for age by sex
-print(plots[[2]]+theme_readme) # weight for age by sex
-print(plots[[3]]+theme_readme+ggplot2::coord_cartesian(xlim = c(NA, 125), ylim = c(NA, 50))) # weight for height by sex
-print(plots[[4]]+theme_readme) # BMI for age by sex
-
-# print(plots[[5]]) # weight for age by sex for preterm newborns using Fenton growth charts
+print(plots[[2]]+theme_readme+coord_cartesian(ylim = c(NA, 125))) # weight for age by sex
+print(plots[[3]]+theme_readme+coord_cartesian(xlim = c(NA, 125), ylim = c(NA, 45))) # weight for height by sex
+print(plots[[4]]+theme_readme+coord_cartesian(ylim = c(NA, 40))) # BMI for age by sex
 ```
 
 
@@ -81,7 +81,7 @@ Please feel free to report problems using the [Issue Tracker](https://github.com
 
 ## Citing SimKid
 
-```{r}
+```{r ref1}
 citation("SimKid")
 ```
 
@@ -144,7 +144,7 @@ A simulation approach wherein 1000 males and 1000 females per CDC growth chart a
 
 The 10x replicate correlations (black) and averaged correlations (red) are shown below:
 
-```{r echo=FALSE}
+```{r sup1, echo=FALSE, optipng = ''}
 library(dplyr)
 
 load("./data/cdc_ages2to20yr_correlations_by_sex_htcm_wtkg_allreplicates.rda")
@@ -185,13 +185,13 @@ The average correlations, by default, are used when simulating virtual subjects 
 
 The below simulations demonstrate the impact of including versus excluding the height and weight correlations. Note the discrepancy in simulated versus reported BMI percentiles for ages >2 years when simulating without height and weight correlations. Without the height and weight correlations, there is a discontinuity at 24 months when the simulation methodology changes away from using CDC weight-for-stature charts and the lower ribbon of the simulated data extends to the 10th reported percentile rather than the 25th.
 
-```{r}
+```{r sup2, optipng = ''}
 demo_cor <-   sim_kid(num = 100, agedistr = "nperage", masterseed = 123, age2to20yr_correlate_htwt = TRUE)
 demo_nocor <- sim_kid(num = 100, agedistr = "nperage", masterseed = 123, age2to20yr_correlate_htwt = FALSE)
 
 val_cor <-   validate_kid(demo_cor,   overlay_percentile = 0.50)
 val_nocor <- validate_kid(demo_nocor, overlay_percentile = 0.50)
 
-print(val_cor[[4]] + labs(title = "Correlated Height and Weight") + theme_readme)
-print(val_nocor[[4]]+labs(title = "Uncorrelated Height and Weight")+theme_readme)
+print(val_cor[[4]] + labs(title = "Correlated Height and Weight") + theme_readme + coord_cartesian(ylim = c(NA, 45)))
+print(val_nocor[[4]]+labs(title = "Uncorrelated Height and Weight")+theme_readme + coord_cartesian(ylim = c(NA, 45)))
 ```

@@ -25,6 +25,7 @@ For example, if \code{sim_kid()} created a male 2 year old at the 25th percentil
 then if allowed to grow to 3 years old, this subject would be at the 25th percentile of height and 30th percentile of weight
 for 3 year old males according to the given anthropometric growth chart.
 Note that this function will not work for virtual preterm newborns created using the Fenton growth chart data.
+Note that this function will not allow virtual subjects ages 0 to 2 yr to grow past 2 years.
 }
 \examples{
 demo0 <- sim_kid()
