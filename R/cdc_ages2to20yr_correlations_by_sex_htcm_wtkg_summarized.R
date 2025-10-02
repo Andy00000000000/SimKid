@@ -3,7 +3,7 @@
 #' Control and Prevention (CDC) Growth Charts
 #' 
 #' The mean correlations over the 10x replicates of optimization is calculated 
-#' for use in the SimKid package. In the SimKid package the optimized 
+#' for use in the 'SimKid' package. In the 'SimKid' package the optimized 
 #' correlations are validated by simulating virtual populations, calculating 
 #' BMI statistics, and overlaying with the respective CDC BMI vs. age growth 
 #' charts.

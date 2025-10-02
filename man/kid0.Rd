@@ -38,6 +38,6 @@ data-raw/cdc0.csv, data-raw/who0.csv, data-raw/fent0.csv
 kid0
 }
 \description{
-cdc0, who0, and fent0 were combined into a single dataset
+\link{cdc0}, \link{who0}, and \link{fent0} were combined into a single dataset.
 }
 \keyword{datasets}

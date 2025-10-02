@@ -1,8 +1,8 @@
 #' Generate a reproducible vector of random seeds
 #' 
 #' @description
-#' Use the user-specified masterseed to generate a vector of randomly sampled 
-#' seeds that is reproducible by calling the same masterseed at a future time.
+#' Use the user-specified `masterseed` to generate a vector of randomly sampled 
+#' seeds that is reproducible by calling the same `masterseed` at a future time.
 #'
 #' @inheritParams sim_kid
 #'

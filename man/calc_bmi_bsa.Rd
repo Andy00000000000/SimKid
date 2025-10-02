@@ -27,6 +27,38 @@ places; calculated using the DuBois equation.
 BMI and BSA are calculated for a data frame that minimally has columns of
 HTCM and WTKG. Output columns match the definitions given by \code{sim_kid()}.
 }
+\details{
+Equations and methods involved during the creation of virtual
+subjects.
+}
+\section{Calculation of body mass index}{
+
+
+The equation for body mass index in kilograms per meter squared is
+\code{BMI = WTKG/((HTCM/100)^2)}.
+}
+
+\section{Calculation of body surface area}{
+
+
+The Mosteller equation (1) for body surface area in meters squared is
+\code{BSA1 = sqrt(WTKG*HTCM/3600)}.
+
+The Gehan and George equation (2) for body surface area in meters squared is
+\code{BSA2 = 0.0235*(WTKG^0.51456)*(HTCM^0.42246)}.
+
+The DuBois equation (3) for body surface area in meters squared is
+\code{BSA3 = 0.007184*(WTKG^0.425)*(HTCM^0.725)}.
+
+(1) Mosteller RD. Simplified calculation of body-surface area. N Engl J Med.
+1987 Oct 22;317(17):1098. <doi: 10.1056/NEJM198710223171717.> PMID: 3657876.
+(2) Gehan EA, George SL. Estimation of human body surface area from height
+and weight. Cancer Chemother Rep. 1970 Aug;54(4):225-35. PMID: 5527019.
+(3) Du Bois D, Du Bois EF. A formula to estimate the approximate surface
+area if height and weight be known. 1916. Nutrition. 1989
+Sep-Oct;5(5):303-11; discussion 312-3. PMID: 2520314.
+}
+
 \examples{
 demo0 <- sim_kid()
 demo <- calc_bmi_bsa(data = demo0)

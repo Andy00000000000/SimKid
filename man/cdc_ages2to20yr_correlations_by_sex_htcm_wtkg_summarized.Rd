@@ -32,7 +32,7 @@ cdc_ages2to20yr_correlations_by_sex_htcm_wtkg_summarized
 }
 \description{
 The mean correlations over the 10x replicates of optimization is calculated
-for use in the SimKid package. In the SimKid package the optimized
+for use in the 'SimKid' package. In the 'SimKid' package the optimized
 correlations are validated by simulating virtual populations, calculating
 BMI statistics, and overlaying with the respective CDC BMI vs. age growth
 charts.

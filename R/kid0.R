@@ -1,6 +1,6 @@
 #' Master Combined Dataset of Growth Charts of Weight, Height, and BMI for Age
 #' 
-#' cdc0, who0, and fent0 were combined into a single dataset
+#' [cdc0], [who0], and [fent0] were combined into a single dataset.
 #' 
 #' @format ## `kid0`
 #' A data frame with 1,536 rows and 16 columns:

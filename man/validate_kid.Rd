@@ -26,7 +26,7 @@ overlay the 5th and 95th percentiles of simulated data.}
 transparency in validation plots. Default of \code{0.4}.}
 }
 \value{
-A list of plot objects.
+A list of 5 'ggplot2' plot objects.
 }
 \description{
 Following creation of a virtual population using \code{sim_kid()}, overlay

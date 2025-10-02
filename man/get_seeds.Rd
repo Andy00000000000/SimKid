@@ -18,8 +18,8 @@ simulate. Defaults to 1000.}
 A vector of numeric integers of length nseed
 }
 \description{
-Use the user-specified masterseed to generate a vector of randomly sampled
-seeds that is reproducible by calling the same masterseed at a future time.
+Use the user-specified \code{masterseed} to generate a vector of randomly sampled
+seeds that is reproducible by calling the same \code{masterseed} at a future time.
 }
 \examples{
 get_seeds(masterseed = 513, nseed = 10)

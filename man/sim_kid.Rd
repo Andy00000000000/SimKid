@@ -201,7 +201,7 @@ subjects.
 The equation for simulated body height in cm (\code{HTCM}) or weight in kg
 (\code{WTKG}) is:
 if L (rounded to 6 decimal places) is equal to 0, then \verb{= M*exp(S*Z)};
-otherwise \verb{= M*(1+L*S*Z)^(1/L))}.
+otherwise \verb{= M*(1+L*S*Z)^(1/L))} (1).
 
 Where L, M, and S are obtained, using the independent variables of sex
 (\code{SEXF}) and age bucket (\code{AGEGRP}), from identical internal-systems-data
@@ -209,6 +209,8 @@ versions of the combined anthropometric growth chart datasets (\link{kid0} and
 \link{htwt0} located within the \code{data} folder).
 And where Z, the z-score respective to either the height or weight
 distribution, is randomly sampled for each virtual subject.
+
+(1) \url{https://www.cdc.gov/growthcharts/cdc-data-files.htm}
 }
 
 \section{Simulation of z-scores for variability in height and weight}{
@@ -254,12 +256,22 @@ The equation for body mass index in kilograms per meter squared is
 \section{Calculation of body surface area}{
 
 
-The Mosteller equation for body surface area in meters squared is
+The Mosteller equation (1) for body surface area in meters squared is
 \code{BSA1 = sqrt(WTKG*HTCM/3600)}.
-The Gehan and George equation for body surface area in meters squared is
+
+The Gehan and George equation (2) for body surface area in meters squared is
 \code{BSA2 = 0.0235*(WTKG^0.51456)*(HTCM^0.42246)}.
-The DuBois equation for body surface area in meters squared is
+
+The DuBois equation (3) for body surface area in meters squared is
 \code{BSA3 = 0.007184*(WTKG^0.425)*(HTCM^0.725)}.
+
+(1) Mosteller RD. Simplified calculation of body-surface area. N Engl J Med.
+1987 Oct 22;317(17):1098. <doi: 10.1056/NEJM198710223171717.> PMID: 3657876.
+(2) Gehan EA, George SL. Estimation of human body surface area from height
+and weight. Cancer Chemother Rep. 1970 Aug;54(4):225-35. PMID: 5527019.
+(3) Du Bois D, Du Bois EF. A formula to estimate the approximate surface
+area if height and weight be known. 1916. Nutrition. 1989
+Sep-Oct;5(5):303-11; discussion 312-3. PMID: 2520314.
 }
 
 \examples{

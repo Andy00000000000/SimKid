@@ -24,7 +24,9 @@ Imports:
     tmvtnorm (>= 1.6),
     withr (>= 3.0.0)
 Suggests: 
+    spelling,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 BugReports: https://github.com/Andy00000000000/SimKid/issues
 URL: https://github.com/Andy00000000000/SimKid
+Language: en-US

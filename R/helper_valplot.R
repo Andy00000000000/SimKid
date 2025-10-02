@@ -14,7 +14,7 @@
 #' @param alpha Numeric between `0` and `1` specifying the simulated data 
 #' transparency in validation plots. Default of `0.4`.
 #'
-#' @return A list of 5 ggplot2 plot objects.
+#' @return A list of 5 'ggplot2' plot objects.
 #'
 #' @noRd
 helper_valplot <- function(

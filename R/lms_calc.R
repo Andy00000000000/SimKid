@@ -1,6 +1,6 @@
 #' Calculate the dependent variable (height or weight) using LMS parameters 
 #' from anthropometric growth charts at a given Z score
-#'
+#' 
 #' @param z Numeric or numerical vector of Z score(s) associated with a given 
 #' percentile of the dependent variable. Default of 0 (i.e., 50th percentile).
 #' @param l Numeric or numerical vector of L parameter(s) from an 
@@ -10,7 +10,9 @@
 #' @param s Numeric or numerical vector of S parameter(s) from an 
 #' anthropometric growth chart.
 #'
-#' @return Numeric dependent variable value.
+#' @return Numeric or vector of numeric dependent variable value(s). Value 
+#' is calculated according to: if `l` (rounded to 6 decimal places) is equal to 
+#' 0, then `= l*exp(s*z)`; otherwise `= m*(1+l*s*z)^(1/l))`.
 #' @export
 #'
 #' @examples

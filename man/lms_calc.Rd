@@ -21,7 +21,9 @@ anthropometric growth chart.}
 anthropometric growth chart.}
 }
 \value{
-Numeric dependent variable value.
+Numeric or vector of numeric dependent variable value(s). Value
+is calculated according to: if \code{l} (rounded to 6 decimal places) is equal to
+0, then \verb{= l*exp(s*z)}; otherwise \verb{= m*(1+l*s*z)^(1/l))}.
 }
 \description{
 Calculate the dependent variable (height or weight) using LMS parameters
