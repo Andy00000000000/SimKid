@@ -1,6 +1,6 @@
 Package: SimKid
 Title: Simulate Virtual Pediatrics using Anthropometric Growth Charts
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Andrew", "Santulli", email = "asantulli@epd-llc.com", role = c("aut", "cre")),
     person("Enhanced Pharmacodynamics LLC", role = c("cph","fnd")))
